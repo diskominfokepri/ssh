@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<modules>
+		<module id="otorisasi_user" class="Application.Autorisasi" />
+		<module id="auth" class="TAuthManager" UserManager="otorisasi_user" LoginPage="Login" />
+	</modules>
+	<authorization>        
+        <allow roles="m" pages="m.*,d.*" />
+		<allow roles="d" pages="d.*" />
+        <allow pages="Home,Login" users="*" />
+		<deny users="*" />		
+	</authorization>
+	<parameters>
+		<parameter id="NewUserRoles" value="m,d" />
+	</parameters>
+</configuration>

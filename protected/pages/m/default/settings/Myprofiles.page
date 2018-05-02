@@ -1,0 +1,117 @@
+<%@ Title="Setting - My Profiles" %>
+<com:TContent ID="moduleheader">
+    <i class="icon-profile position-left"></i> <span class="text-semibold">My Profiles</span>
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href=#">SETTING</a></li>    
+    <li class="active">My PROFILES</li>
+</com:TContent>
+<com:TContent ID="maincontent">
+<!-- Toolbar -->
+<div class="navbar navbar-default navbar-component navbar-xs">
+    <ul class="nav navbar-nav visible-xs-block">
+        <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+    </ul>
+    <div class="navbar-collapse collapse" id="navbar-filter">
+        <ul class="nav navbar-nav">            
+            <li class="active"><a href="#settings" data-toggle="tab"><i class="icon-cog3 position-left"></i> Settings</a></li>
+        </ul>        
+    </div>
+</div>
+<!-- /toolbar -->
+<!-- User profile -->
+<div class="row">
+    <div class="col-lg-9">
+        <div class="tabbable">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="settings">
+                    <!-- Account settings -->
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">Setting User</h6>
+                            <div class="heading-elements">
+								
+                            </div>
+                        </div>
+                        <div class="panel-body">                            
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Username :</label>                                            
+                                        <input type="text" value="<%=$this->Pengguna->getUsername()%>" readonly="readonly" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Theme :</label>
+                                        <com:TDropDownList ID="cmbTheme" CssClass="form-control" Width="150px"  />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>New password :</label>
+                                        <com:TTextBox ID="txtPassword" Attributes.placeholder="Enter new password" CssClass="form-control" TextMode="Password" />                                            
+                                    </div>
+                                    <div class="col-md-6" id="divUserpassword">
+                                        <label>Repeat password :</label>
+                                        <com:TTextBox ID="txtPassword2" Attributes.placeholder="Repeat new password" CssClass="form-control" TextMode="Password" />                                            
+                                        <com:TCompareValidator ID="FieldRetypePasswordValidator" ControlToValidate="txtPassword" ControlToCompare="txtPassword2" Display="Dynamic" ErrorMessage="Isi Password tidak sama" ValidationGroup="profileuser" FocusOnError="true" CssClass="has-error help-block">
+                                            <prop:ClientSide.OnValidationError>
+                                                $('#divUserpassword').addClass('has-error');
+                                                $('#<%=$this->FieldRetypePasswordValidator->ClientID%>').removeAttr('style');
+                                            </prop:ClientSide.OnValidationError>
+                                            <prop:ClientSide.OnValidationSuccess>
+                                                $('#divUserpassword').removeClass('has-error');
+                                            </prop:ClientSide.OnValidationSuccess>
+                                        </com:TCompareValidator>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">                                    
+                                <com:TActiveButton ID="btnSave" CssClass="btn btn-info btn-labeled btn-xs" OnClick="saveData" Attributes.Title="Simpan" ValidationGroup="profileuser">
+                                    <prop:Text>                                        
+                                        Simpan                                        
+                                    </prop:Text>
+                                    <prop:ClientSide.OnPreDispatch>         
+                                        $('#<%=$this->btnSave->ClientId%>').prop('disabled',true);						
+                                        Pace.stop();
+                                        Pace.start();			                               
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('#<%=$this->btnSave->ClientId%>').prop('disabled',true);						
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.OnComplete>																	
+                                        $('#<%=$this->btnSave->ClientId%>').prop('disabled',false);						                                                        
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveButton>
+                            </div>                            
+                        </div>
+                    </div>
+                    <!-- /account settings -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <!-- User thumbnail -->
+        <div class="thumbnail">
+            <div class="thumb thumb-rounded">
+                <img src="<%=$this->Page->setup->getAddress()%>/<%=$_SESSION['photo_profile']%>" alt="">
+                <div class="caption">
+                    <span>
+                        <com:TActiveHiddenField ID="hiddenpath"/>
+                        <com:TActiveHiddenField ID="hiddenfile"/>
+                        <com:TActiveFileUpload OnFileUpload="photoUpload"/>
+                        <com:TActiveLabel ID="Hasil"/>
+                    </span>                    
+                </div>
+            </div>
+            <div class="caption text-center">
+                <h6 class="text-semibold no-margin"><%=$this->Pengguna->getUsername()%> <small class="display-block">MANAJEMEN</small></h6>                
+            </div>
+        </div>
+        <!-- /user thumbnail -->
+    </div>
+</div>
+<!-- /user profile -->
+</com:TContent>

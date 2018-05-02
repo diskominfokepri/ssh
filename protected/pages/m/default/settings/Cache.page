@@ -1,0 +1,41 @@
+<%@ Title="Setting - Cache" %>
+<com:TContent ID="moduleheader">    
+    <i class="icon-database position-left"></i> <span class="text-semibold">Cache</span>  
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">SETTING</a></li>    
+    <li class="active">CACHE</li>
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row">
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title"><i class="icon-database position-left"></i>  CACHE</h5>                
+                <div class="heading-elements">
+                    
+                </div>
+            </div>
+            <div class="panel-body">
+                <com:TActiveLabel ID="message" /> 
+                <com:TActiveLinkButton ID="btnClearCache" CssClass="btn btn-danger btn-labeled btn-xs" OnClick="hapusCache" ClientSide.PostState="false">
+                    <prop:Text>
+                        Hapus Cache
+                    </prop:Text>
+                    <prop:ClientSide.OnPreDispatch>   
+                        Pace.stop();
+                        Pace.start();   
+                        $('#<%=$this->btnClearCache->ClientId%>').prop('disabled',true);                                    
+                    </prop:ClientSide.OnPreDispatch>
+                    <prop:ClientSide.OnLoading>
+                        $('#<%=$this->btnClearCache->ClientId%>').prop('disabled',true);                                    
+                    </prop:ClientSide.OnLoading>
+                    <prop:ClientSide.onComplete>
+                        $('#<%=$this->btnClearCache->ClientId%>').prop('disabled',false);                                   
+                    </prop:ClientSide.OnComplete>
+                </com:TActiveLinkButton>
+            </div>
+        </div>        
+    </div>        
+</com:TPanel>
+</com:TContent>

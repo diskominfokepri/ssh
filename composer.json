@@ -1,0 +1,26 @@
+{
+	"name": "diskominfokepri/ssh",
+	"type": "project",
+	"description": "Sistem Informasi Standar Satuan Harga (SSH)",
+	"license" : "proprietary",
+	"authors": [
+		{
+			"name": "TIM KIIS Diskominfo Kepulauanm Riau",
+			"email": "rizki@kepriprov.go.id",
+			"role" : "Developer"
+		}
+	],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://asset-packagist.org"
+		}
+	],
+	"require": {
+		"pradosoft/prado": "*",
+		"phpoffice/phpspreadsheet": "*"
+	},
+	"config": {
+		"vendor-dir": "protected/vendor"
+	}	
+}

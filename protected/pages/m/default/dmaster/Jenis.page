@@ -1,0 +1,284 @@
+<%@ Title="Data Master - Rekening - Jenis" %>
+<com:TContent ID="moduleheader">
+    <i class="icon-calculator2 position-left"></i> <span class="text-semibold">Jenis</span>
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">DATA MASTER</a></li>
+    <li><a href="#">REKENING</a></li>
+    <li class="active">JENIS</li>
+</com:TContent>
+<com:TContent ID="maincontent">	
+<com:TPanel Visible="<%= $this->getAddProcess(false) %>" CssClass="content">		
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> TAMBAH JENIS</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">                    
+                    <li>
+                        <a href="<%=$this->Page->constructUrl('dmaster.Jenis',true);%>" data-action="closeredirect"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group" id="divAddKodeKelompok">
+                    <label class="control-label col-md-2">Nama Kelompok :</label>
+                    <div class="col-md-10">
+                        <com:TActiveDropDownList ID="cmbAddKelompok" OnCallBack="cmbKelompokChanged" CssClass="form-control">		                    
+                            <prop:ClientSide.OnLoading>     
+                                Pace.stop();
+                                Pace.start();
+                                $('#<%=$this->cmbAddKelompok->ClientId%>').prop('disabled',true); 
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>                                                                    
+                                $('#<%=$this->cmbAddKelompok->ClientId%>').prop('disabled',false); 
+                                Prado.Validation.reset("addjenis");
+                                $('#divAddKodeKelompok').removeClass('has-error');
+                                $('#divAddKodeJenis').removeClass('has-error');
+                                $('#divAddNamaJenis').removeClass('has-error');
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveDropDownList>
+                        <com:TRequiredFieldValidator ID="FieldAddKodeKelompokValidator" ControlToValidate="cmbAddKelompok" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih Nama Kelompok" ValidationGroup="addjenis" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divAddKodeKelompok').addClass('has-error');
+                                $('#<%=$this->FieldAddKodeKelompokValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divAddKodeKelompok').removeClass('has-error');
+                                Prado.Validation.reset("addjenis");
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>	
+                    </div>
+                </div>
+                <div class="form-group" id="divAddKodeJenis">
+                    <label class="control-label col-md-2">Kode Jenis :</label>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <com:TActiveLabel ID="lblAddKodeKelompok" ForeColor="red" CssClass="input-group-addon" />
+                            <com:TActiveTextBox ID="txtAddKodeJenis" MaxLength="2" CssClass="form-control" />	
+                        </div>
+                        <com:TRequiredFieldValidator ID="FieldAddKodeJenisValidator" ControlToValidate="txtAddKodeJenis" Display="Dynamic" ErrorMessage="Isi Kode Jenis" ValidationGroup="addjenis" FocusOnError="true" CssClass="has-error help-block">	
+                            <prop:ClientSide.OnValidationError>
+                                $('#divAddKodeJenis').addClass('has-error');
+                                $('#<%=$this->FieldAddKodeJenisValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divAddKodeJenis').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                        <com:TActiveCustomValidator ID="checkAddKodeJenis" ControlToValidate="txtAddKodeJenis" Display="Dynamic" OnServerValidate="checkKodeJenis" ValidationGroup="addjenis" ErrorMessage="Kode Transaksi Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divAddKodeJenis').addClass('has-error');
+                                $('#<%=$this->checkAddKodeJenis->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divAddKodeJenis').removeClass('has-error');
+                                Prado.Validation.reset("addkelompok");
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TActiveCustomValidator>
+                    </div>
+               </div>
+                <div class="form-group" id="divAddNamaJenis">
+                    <label class="control-label col-md-2">Nama Jenis :</label>			
+                    <div class="col-md-10">				
+                        <com:TActiveTextBox ID="txtAddNamaJenis" Columns="30" CssClass="form-control" />		
+                        <com:TRequiredFieldValidator ID="FieldAddNamaJenisValidator" ControlToValidate="txtAddNamaJenis" Display="Dynamic" ErrorMessage="Isi Nama Jenis" ValidationGroup="addjenis" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divAddNamaJenis').addClass('has-error');
+                                $('#<%=$this->FieldAddNamaJenisValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divAddNamaJenis').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>	    				
+                    </div>		
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <com:TActiveButton ID="btnSave" CssClass="btn btn-info btn-labeled btn-xs" OnClick="saveData" ValidationGroup="addjenis" Attributes.Title="Simpan">
+                            <prop:Text>                                        
+                                Simpan                                        
+                            </prop:Text>
+                            <prop:ClientSide.OnPreDispatch>         
+                                Pace.stop();
+                                Pace.start();
+                                $('#<%=$this->btnSave->ClientId%>').prop('disabled',true);			
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('#<%=$this->btnSave->ClientId%>').prop('disabled',true);						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('#<%=$this->btnSave->ClientId%>').prop('disabled',false);						                               						                                        
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveButton>        
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+    <com:TClientScript ScriptUrl="<%=$this->Page->Theme->baseUrl%>/assets/js/plugins/numeric/autoNumeric-min.js">
+        $(document).ready(function(){
+           $('#<%=$this->txtAddKodeJenis->ClientID%>').autoNumeric('init',{aSep:'',mDec:'0',vMin:'0000',vMax:'9999',lZero:'keep'});
+        });
+    </com:TClientScript>
+</com:TPanel>	
+<com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="content">
+    <com:THiddenField ID="hiddennorek3" />
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> TAMBAH JENIS</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">                    
+                    <li>
+                        <a href="<%=$this->Page->constructUrl('dmaster.Jenis',true);%>" data-action="closeredirect"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group" id="divEditKodeJenis">
+                    <label class="control-label col-md-2">Kode Jenis :</label>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <com:TActiveLabel ID="lblEditKodeKelompok" ForeColor="red" CssClass="input-group-addon" />
+                            <com:TActiveTextBox ID="txtEditKodeJenis" MaxLength="2" CssClass="form-control" />	
+                        </div>
+                        <com:TRequiredFieldValidator ID="FieldEditKodeJenisValidator" ControlToValidate="txtEditKodeJenis" Display="Dynamic" ErrorMessage="Isi Kode Jenis" ValidationGroup="editjenis" FocusOnError="true" CssClass="has-error help-block">	
+                            <prop:ClientSide.OnValidationError>
+                                $('#divEditKodeJenis').addClass('has-error');
+                                $('#<%=$this->FieldEditKodeJenisValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divEditKodeJenis').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                        <com:TActiveCustomValidator ID="checkEditKodeJenis" ControlToValidate="txtEditKodeJenis" Display="Dynamic" OnServerValidate="checkKodeJenis" ValidationGroup="editjenis" ErrorMessage="Kode Transaksi Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divEditKodeJenis').addClass('has-error');
+                                $('#<%=$this->checkEditKodeJenis->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divEditKodeJenis').removeClass('has-error');
+                                Prado.Validation.reset("editjenis");
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TActiveCustomValidator>
+                    </div>
+               </div>
+                <div class="form-group" id="divEditNamaJenis">
+                    <label class="control-label col-md-2">Nama Jenis :</label>			
+                    <div class="col-md-10">				
+                        <com:TActiveTextBox ID="txtEditNamaJenis" Columns="30" CssClass="form-control" />		
+                        <com:TRequiredFieldValidator ID="FieldEditNamaJenisValidator" ControlToValidate="txtEditNamaJenis" Display="Dynamic" ErrorMessage="Isi Nama Jenis" ValidationGroup="editjenis" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divEditNamaJenis').addClass('has-error');
+                                $('#<%=$this->FieldEditNamaJenisValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divEditNamaJenis').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>	    				
+                    </div>		
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <com:TActiveButton ID="btnUpdate" CssClass="btn btn-info btn-labeled btn-xs" OnClick="updateData" ValidationGroup="editjenis" Attributes.Title="Simpan">
+                            <prop:Text>                                        
+                                Simpan                                        
+                            </prop:Text>
+                            <prop:ClientSide.OnPreDispatch>         
+                                Pace.stop();
+                                Pace.start();
+                                $('#<%=$this->btnUpdate->ClientId%>').prop('disabled',true);			
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('#<%=$this->btnUpdate->ClientId%>').prop('disabled',true);						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('#<%=$this->btnSave->ClientId%>').prop('disabled',false);						                               						                                        
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveButton>        
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+	
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row">
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title"><i class="icon-calculator2 position-left"></i> DAFTAR JENIS</h5>                
+                <div class="heading-elements">
+                    <com:TButton OnClick="addProcess" ID="add" CausesValidation="false" CssClass="btn btn-info btn-xs" Attributes.Title="Tambah Rekening" ButtonType="Button" ButtonTag="Button">
+                        <prop:Text>
+                             <i class="icon-googleplus5"></i>
+                        </prop:Text>
+                    </com:TButton>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <com:TActiveRepeater ID="RepeaterS" DataKeyField="no_rek3" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                    <prop:HeaderTemplate>			
+                        <table class="table table-striped table-hover">	
+                            <thead>
+                            <tr class="bg-teal-700">
+                                <th width="15">NO</th>
+                                <th width="200">KODE JENIS</th>
+                                <th>NAMA JENIS</th>                        
+                                <th width="160">AKSI</th>							
+                            </tr>								
+                            </thead>
+                            <tbody>
+                    </prop:HeaderTemplate>
+                    <prop:ItemTemplate>
+                        <tr>				
+                            <td><%#$this->Data['no']%></td>
+                            <td><%#$this->Data['no_rek3']%></td>	
+                            <td><%#$this->Data['nama_rek3']%></td>											                   
+                            <td>
+                                <ul class="icons-list">
+                                    <li class="text-primary-600">
+                                        <com:TLinkButton Text="<i class='icon-pencil7'></i>" OnClick="Page.editRecord" Attributes.Title="Ubah Data JENIS" />
+                                    </li>
+                                    <li class="text-danger-600">                                    
+                                        <com:TActiveLinkButton ID="btnDelete" Text="<i class='icon-trash'></i>" OnClick="Page.deleteRecord" ClientSide.PostState="false" Attributes.OnClick="if(!confirm('Apakah Anda ingin menghapus data JENIS ini ?')) return false;" Attributes.Title="Hapus Data JENIS">
+                                            <prop:ClientSide.OnPreDispatch>         
+                                                Pace.stop();
+                                                Pace.start();
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',true);      
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',true);                    
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.OnComplete>                                                                    
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',false);                                                                                                             
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </li>                                
+                                </ul>
+                            </td>
+                        </tr>
+                    </prop:ItemTemplate>				
+                    <prop:FooterTemplate>               
+                        </tbody>
+                        </table>
+                    </prop:FooterTemplate>	
+                    <prop:EmptyTemplate>
+                        <div class="panel-body">
+                            <div class="alert alert-info alert-styled-left alert-bordered">
+                                <span class="text-semibold">Info!</span>
+                                Belum ada data yang bisa ditampilkan.
+                            </div>                
+                        </div>
+                    </prop:EmptyTemplate>
+                </com:TActiveRepeater>
+                <%include Application.layouts.default.CustomPaging%>
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+<%include Application.layouts.default.ModalMessageError%>
+</com:TContent>

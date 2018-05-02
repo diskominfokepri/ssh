@@ -1,0 +1,254 @@
+<%@ Title="Data Master - Rekening - Transaksi" %>
+<com:TContent ID="moduleheader">
+    <i class="icon-calculator2 position-left"></i> <span class="text-semibold">Transaksi</span>
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">DATA MASTER</a></li>
+    <li><a href="#">REKENING</a></li>
+    <li class="active">TRANSAKSI</li>
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getAddProcess(false) %>" CssClass="content">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> TAMBAH TRANSAKSI</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">                    
+                    <li>
+                        <a href="<%=$this->Page->constructUrl('dmaster.Transaksi',true);%>" data-action="closeredirect"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group" id="divAddKodeTransaksi">
+                    <label class="control-label col-md-2">Kode Transaksi:</label>
+                    <div class="col-md-10">
+                        <com:TTextBox ID="txtAddKodeTransaksi" MaxLength="4" CssClass="form-control" />				
+                        <com:TRequiredFieldValidator ID="FieldAddKodeTransaksiValidator" ControlToValidate="txtAddKodeTransaksi" Display="Dynamic" ErrorMessage="Isi Kode Transaksi" ValidationGroup="addtransaksi" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divAddKodeTransaksi').addClass('has-error');
+                                $('#<%=$this->FieldAddKodeTransaksiValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divAddKodeTransaksi').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                        <com:TActiveCustomValidator ID="checkAddKodeTransaksi" ControlToValidate="txtAddKodeTransaksi" Display="Dynamic" OnServerValidate="checkKodeTransaksi" ValidationGroup="addtransaksi" ErrorMessage="Kode Transaksi Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">					
+                            <prop:ClientSide.OnValidationError>
+                                $('#divAddKodeTransaksi').addClass('has-error');
+                                $('#<%=$this->checkAddKodeTransaksi->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divAddKodeTransaksi').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TActiveCustomValidator>
+                    </div>
+                </div>
+                <div class="form-group" id="divAddNamaTransaksi">
+                    <label class="control-label col-md-2">Nama Transaksi:</label>
+                    <div class="col-md-10">
+                        <com:TTextBox ID="txtAddNamaTransaksi" CssClass="form-control" />		
+                        <com:TRequiredFieldValidator ID="FieldAddNamaTransaksiValidator" ControlToValidate="txtAddNamaTransaksi" Display="Dynamic" ErrorMessage="Isi Nama Transaksi" ValidationGroup="addtransaksi" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divAddNamaTransaksi').addClass('has-error');
+                                $('#<%=$this->FieldAddNamaTransaksiValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divAddNamaTransaksi').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                </div>
+				<div class="form-group" id="divAddTipe">
+                    <label class="control-label col-md-2">Tipe:</label>
+                    <div class="col-md-10">
+                        <com:TDropDownList ID="cmbAddTipe" CssClass="form-control" />
+                        <com:TRequiredFieldValidator ID="FieldAddTipeValidator" ControlToValidate="cmbAddTipe" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih Tipe" ValidationGroup="addtransaksi" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divAddTipe').addClass('has-error');
+                                $('#<%=$this->FieldAddTipeValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divAddTipe').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <com:TActiveButton ID="btnSave" CssClass="btn btn-info btn-labeled btn-xs" OnClick="saveData" ValidationGroup="addtransaksi" Attributes.Title="Simpan">
+                            <prop:Text>                                        
+                                Simpan                                        
+                            </prop:Text>
+                            <prop:ClientSide.OnPreDispatch>         
+                                Pace.stop();
+                                Pace.start();
+                                $('#<%=$this->btnSave->ClientId%>').prop('disabled',true);			
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('#<%=$this->btnSave->ClientId%>').prop('disabled',true);						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('#<%=$this->btnSave->ClientId%>').prop('disabled',false);						                               						                                        
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveButton>        
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div> 
+    <com:TClientScript ScriptUrl="<%=$this->Page->Theme->baseUrl%>/assets/js/plugins/numeric/autoNumeric-min.js">
+        $(document).ready(function(){
+           $('#<%=$this->txtAddKodeTransaksi->ClientID%>').autoNumeric('init',{aSep:'',mDec:'0',vMin:'0000',vMax:'9999',lZero:'keep'});
+        });
+    </com:TClientScript>
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="content">
+    <com:THiddenField ID="hiddenid" />
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> UBAH TRANSAKSI</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">                    
+                    <li>
+                        <a href="<%=$this->Page->constructUrl('dmaster.Transaksi',true);%>" data-action="closeredirect"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group" id="divEditNamaTransaksi">
+                    <label class="control-label col-md-2">Nama Transaksi:</label>
+                    <div class="col-md-10">
+                        <com:TTextBox ID="txtEditNamaTransaksi" CssClass="form-control" />		
+                        <com:TRequiredFieldValidator ID="FieldEditNamaTransaksiValidator" ControlToValidate="txtEditNamaTransaksi" Display="Dynamic" ErrorMessage="Isi Nama Transaksi" ValidationGroup="edittransaksi" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divEditNamaTransaksi').addClass('has-error');
+                                $('#<%=$this->FieldEditNamaTransaksiValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divEditNamaTransaksi').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                </div>
+				<div class="form-group" id="divEditTipe">
+                    <label class="control-label col-md-2">Tipe:</label>
+                    <div class="col-md-10">
+                        <com:TDropDownList ID="cmbEditTipe" CssClass="form-control" />
+                        <com:TRequiredFieldValidator ID="FieldEditTipeValidator" ControlToValidate="cmbEditTipe" Display="Dynamic" ErrorMessage="Pilih Tipe" ValidationGroup="addtransaksi" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divEditTipe').addClass('has-error');
+                                $('#<%=$this->FieldEditTipeValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divEditTipe').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-9">
+                        <com:TActiveButton ID="btnUpdate" CssClass="btn btn-info btn-labeled btn-xs" OnClick="updateData" ValidationGroup="edittransaksi" Attributes.Title="Simpan">
+                            <prop:Text>                                        
+                                Simpan                                        
+                            </prop:Text>
+                            <prop:ClientSide.OnPreDispatch>         
+                                Pace.stop();
+                                Pace.start();
+                                $('#<%=$this->btnUpdate->ClientId%>').prop('disabled',true);			
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('#<%=$this->btnUpdate->ClientId%>').prop('disabled',true);						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('#<%=$this->btnUpdate->ClientId%>').prop('disabled',false);						                               						                                        
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveButton>        
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div> 
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row">     
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title"><i class="icon-calculator2 position-left"></i>  DAFTAR TRANSAKSI</h5>                
+                <div class="heading-elements">
+                    <com:TButton OnClick="addProcess" ID="add" CausesValidation="false" CssClass="btn btn-info btn-xs" Attributes.Title="Tambah Rekening" ButtonType="Button" ButtonTag="Button">
+                        <prop:Text>
+                              <i class="icon-googleplus5"></i>
+                        </prop:Text>
+                    </com:TButton>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <com:TActiveRepeater ID="RepeaterS" DataKeyField="no_rek1" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                    <prop:HeaderTemplate>	
+                        <table class="table table-striped table-hover">	
+                            <thead>
+                             <tr class="bg-teal-700">
+                                <th width="15">NO</th>
+                                <th width="200">KODE TRANSAKSI</th>
+                                <th>NAMA TRANSAKSI</th>
+								<th>TIPE BARANG</th>
+                                <th width="160">AKSI</th>
+                            </tr>								
+                            </thead>
+                            <tbody>
+                    </prop:HeaderTemplate>
+                    <prop:ItemTemplate>
+                        <tr>				
+                            <td><%#$this->Data['no']%></td>
+                            <td><%#$this->Data['no_rek1']%></td>	
+                            <td><%#$this->Data['nama_rek1']%></td>
+							<td><%#$this->Data['nama_tipe']%></td>
+                            <td>                            
+                                <ul class="icons-list">
+                                    <li class="text-primary-600">
+                                        <com:TLinkButton Text="<i class='icon-pencil7'></i>" OnClick="Page.editRecord" Attributes.Title="Ubah Data TRANSAKSI" />
+                                    </li>
+                                    <li class="text-danger-600">                                    
+                                        <com:TActiveLinkButton ID="btnDelete" Text="<i class='icon-trash'></i>" OnClick="Page.deleteRecord" ClientSide.PostState="false" Attributes.OnClick="if(!confirm('Apakah Anda ingin menghapus data TRANSAKSI ini ?')) return false;" Attributes.Title="Hapus Data TRANSAKSI">
+                                            <prop:ClientSide.OnPreDispatch>         
+                                                Pace.stop();
+                                                Pace.start();
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',true);         
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',true);                     
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.OnComplete>                                                                    
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',false);                                                                                                                 
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </li>                                
+                                </ul>
+                            </td>
+                        </tr>
+                    </prop:ItemTemplate>	
+                    <prop:FooterTemplate>               
+                        </tbody>
+                        </table>
+                    </prop:FooterTemplate>	
+                    <prop:EmptyTemplate>
+                        <div class="panel-body">
+                            <div class="alert alert-info alert-styled-left alert-bordered">
+                                <span class="text-semibold">Info!</span>
+                                Belum ada data yang bisa ditampilkan.
+                            </div>                
+                        </div>
+                    </prop:EmptyTemplate>
+                </com:TActiveRepeater>
+                <%include Application.layouts.default.CustomPaging%>
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+<%include Application.layouts.default.ModalMessageError%>
+</com:TContent>

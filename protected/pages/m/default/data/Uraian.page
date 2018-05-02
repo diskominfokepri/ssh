@@ -1,0 +1,368 @@
+<%@ Title="Data - Uraian" %>
+<com:TContent ID="moduleheader">
+    <i class="icon-task position-left"></i> <span class="text-semibold">Uraian</span>
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">    
+    <li><a href="#">DATA</a></li>
+    <li class="active">URAIAN</li>
+</com:TContent>
+<com:TContent ID="sidebarcontent">
+<div class="sidebar sidebar-main sidebar-default sidebar-separate">
+    <div class="sidebar-content" style="margin-right:5px">    
+         <%include Application.layouts.default.FilterMode1%>
+    </div>
+</div>
+</com:TContent>
+<com:TContent ID="maincontent">   
+<com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="content">
+    <com:THiddenField ID="hiddenid" />
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> UBAH URAIAN</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">                    
+                    <li>
+                        <a href="<%=$this->Page->constructUrl('data.Uraian',true);%>" data-action="closeredirect"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">                
+                <fieldset class="content-group">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Kode / Nama Objek :</label>
+                        <div class="col-md-10">
+                            <p class="form-control-static">
+                                <com:TLabel ID="lblEditKodeNamaUraian" />
+                            </p>                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Merek</label>
+                        <div class="col-md-10">
+                            <p class="form-control-static">
+                                <com:TLabel ID="lblEditNamaMerek" />                                
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Satuan</label>
+                        <div class="col-md-10">
+                             <p class="form-control-static">
+                                <com:TLabel ID="lblEditSatuan" />                                
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divEditHargaBatam">
+                        <label class="control-label col-md-2">Harga Batam</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaBatam" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaBatamValidator" ControlToValidate="txtEditHargaBatam" Display="Dynamic" ErrorMessage="Isi Harga Batam" ValidationGroup="edituraian" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaBatam').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaBatamValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaBatam').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>                                                      
+                    <div class="form-group" id="divEditHargaBintan">
+                        <label class="control-label col-md-2">Harga Bintan</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaBintan" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaBintanValidator" ControlToValidate="txtEditHargaBintan" Display="Dynamic" ErrorMessage="Isi Harga Bintan" ValidationGroup="edituraian" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaBintan').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaBintanValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaBintan').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div> 
+                    <div class="form-group" id="divEditHargaTanjungpinang">
+                        <label class="control-label col-md-2">Harga Tanjungpinang</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaTanjungpinang" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaTanjungpinangValidator" ControlToValidate="txtEditHargaTanjungpinang" Display="Dynamic" ErrorMessage="Isi Harga Tanjungpinang" ValidationGroup="edituraian" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaTanjungpinang').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaTanjungpinangValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaTanjungpinang').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>
+                    <div class="form-group" id="divEditHargaKarimun">
+                        <label class="control-label col-md-2">Harga Karimun</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaKarimun" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaKarimunValidator" ControlToValidate="txtEditHargaKarimun" Display="Dynamic" ErrorMessage="Isi Harga Karimun" ValidationGroup="edituraian" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaKarimun').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaKarimunValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaKarimun').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div> 
+                    <div class="form-group" id="divEditHargaLingga">
+                        <label class="control-label col-md-2">Harga Lingga</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaLingga" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaLinggaValidator" ControlToValidate="txtEditHargaLingga" Display="Dynamic" ErrorMessage="Isi Harga Lingga" ValidationGroup="edituraian" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaLingga').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaLinggaValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaLingga').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>   
+                    <div class="form-group" id="divEditHargaNatuna">
+                        <label class="control-label col-md-2">Harga Natuna</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaNatuna" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaNatunaValidator" ControlToValidate="txtEditHargaNatuna" Display="Dynamic" ErrorMessage="Isi Harga Natuna" ValidationGroup="edituraian" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaNatuna').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaNatunaValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaNatuna').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>  
+                    <div class="form-group" id="divEditHargaAnambas">
+                        <label class="control-label col-md-2">Harga Anambas</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaAnambas" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaAnambasValidator" ControlToValidate="txtEditHargaAnambas" Display="Dynamic" ErrorMessage="Isi Harga Anambas" ValidationGroup="edituraian" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaAnambas').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaAnambasValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaAnambas').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>   
+                </fieldset>
+                <fieldset class="content-group">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <com:TActiveButton ID="btnSave" CssClass="btn btn-info btn-labeled btn-xs" ValidationGroup="edituraian" OnClick="updateData" Attributes.Title="Simpan">
+                                <prop:Text>                                        
+                                    Simpan                                        
+                                </prop:Text>
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('#<%=$this->btnSave->ClientId%>').prop('disabled',true);  
+                                    Pace.stop();
+                                    Pace.start();                                           
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('#<%=$this->btnSave->ClientId%>').prop('disabled',true);                                      
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.onComplete>
+                                    $('#<%=$this->btnSave->ClientId%>').prop('disabled',false);
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveButton>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>        
+        </div>
+    </div>
+    <com:TClientScript ScriptUrl="<%=$this->Page->Theme->baseUrl%>/assets/js/plugins/numeric/autoNumeric-min.js">
+        $(document).ready(function(){
+           $('#<%=$this->txtEditHargaBatam->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaBintan->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaTanjungpinang->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaKarimun->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaLingga->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaNatuna->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaAnambas->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+        });
+    </com:TClientScript>
+</com:TPanel>  
+<com:TPanel Visible="<%= $this->getDefaultProcess(false) %>" CssClass="row">
+    <div class="col-md-12">
+        <div class="panel panel-flat border-top-lg border-top-info border-bottom-info">
+            <div class="panel-heading">
+                <h5 class="panel-title"><i class="icon-search4 position-left"></i> Pencarian Data</h5>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Kriteria :</label> 
+                        <div class="col-md-10">
+                            <com:TDropDownList ID="cmbKriteria" CssClass="form-control">
+                                <com:TListItem Value="rekening" Text="REKENING" />
+                                <com:TListItem Value="nama_objek" Text="NAMA OBJEK" />
+                            </com:TDropDownList>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divKriteria">
+                        <label class="col-md-2 control-label">Isi Kriteria :</label>                                                    
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtKriteria" CssClass="form-control" />
+                            <com:TRequiredFieldValidator ID="FieldKriteriaValidator" ValidationGroup="filterForm" Display="Dynamic" ControlToValidate="txtKriteria" ErrorMessage="Input apa yang Anda cari, sesuai dengan kriteria yang Anda tentukan." FocusOnError="true" CssClass="has-error help-block">    
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divKriteria').addClass('has-error');
+                                    $('#<%=$this->FieldKriteriaValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divKriteria').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                                         
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <com:TActiveButton ID="btnSearch" CssClass="btn btn-info btn-labeled btn-xs"  OnClick="Page.searchRecord" ValidationGroup="filterForm" Attributes.Title="Cari">
+                                <prop:Text>                                        
+                                    Cari                                        
+                                </prop:Text>
+                                <prop:ClientSide.OnPreDispatch>         
+                                    Pace.stop();
+                                    Pace.start(); 
+                                    $('#<%=$this->btnSearch->ClientId%>').prop('disabled',true);
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('#<%=$this->btnSearch->ClientId%>').prop('disabled',true);                        
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.OnComplete>                                                                    
+                                    $('#<%=$this->btnSearch->ClientId%>').prop('disabled',false);
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveButton>  
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title"><i class="icon-task"></i> DAFTAR URAIAN <com:TActiveLabel ID="lblmoduleheader" /></h5>
+                <div class="heading-elements">
+                    <div class="heading-btn">                    
+                        <a href="<%=$this->constructUrl('data.TambahUraian',true)%>" class="btn btn-info btn-xs" title="Tambah Uraian">
+                            <i class="icon-googleplus5"></i>
+                        </a>                         
+                    </div>         
+                </div>
+            </div>
+            <div class="table-responsive">                
+                <com:TActiveRepeater ID="RepeaterS" DatakeyField="iduraian" AllowPaging="true" AllowCustomPaging="true" PageSize="10">
+                    <prop:HeaderTemplate>   
+                        <br />
+                        <table class="table table-striped table-hover" style="font-size:12px">          
+                            <thead>
+                            <tr class="bg-teal-700">
+                                <th width="15">NO</th>
+                                <th width="15">REKENING</th>
+                                <th width="250">NAMA OBJEK</th>
+                                <th width="15">SAT.</th>
+                                <th>MEREK</th>
+                                <th width="500">HARGA</th>                                
+                                <th width="120">AKSI</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                    </prop:HeaderTemplate>      
+                    <prop:ItemTemplate>
+                        <tr>
+                            <td><%#$this->Data['no']%></td>
+                            <td><%#$this->Data['rekening']%></td> 
+                            <td><%#$this->Data['nama_rek5']%></td> 
+                            <td><%#$this->Data['id_satuan']==0?'-':$this->Page->DMaster->getNamaSatuan($this->Data['id_satuan'])%></td> 
+                            <td><%#$this->Data['merek']%></td> 
+                            <td> 
+                                <table width="100%">
+                                    <tr>
+                                        <td width="110"><strong>BATAM :</strong></td>
+                                        <td width="120">
+                                            <%#$this->Page->DMaster->formatUang($this->Data['batam'])%>
+                                        </td>
+                                        <td width="110"><strong>BINTAN :</strong></td>
+                                        <td width="120">
+                                            <%#$this->Page->DMaster->formatUang($this->Data['bintan'])%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>TG. PINANG :</strong></td>
+                                        <td>
+                                            <%#$this->Page->DMaster->formatUang($this->Data['tanjungpinang'])%>
+                                        </td>
+                                        <td><strong>KARIMUN :</strong></td>
+                                        <td><%#$this->Page->DMaster->formatUang($this->Data['karimun'])%></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>LINGGA :</strong></td>
+                                        <td><%#$this->Page->DMaster->formatUang($this->Data['lingga'])%></td>
+                                        <td><strong>NATUNA   :</strong></td>
+                                        <td><%#$this->Page->DMaster->formatUang($this->Data['natuna'])%></td></td>
+                                    </tr>                                    
+                                    <tr>
+                                        <td><strong>ANAMBAS :</strong></td>
+                                        <td><%#$this->Page->DMaster->formatUang($this->Data['anambas'])%></td></td>
+                                    </tr>
+                                </table>
+                            </td>        
+                            <td>
+                                <ul class="icons-list">
+                                    <li class="text-primary-600">
+                                        <com:TLinkButton Text="<i class='icon-pencil7'></i>" OnClick="Page.editRecord" Attributes.Title="Ubah Data KELOMPOK" />
+                                    </li>
+                                    <li class="text-danger-600">                                    
+                                        <com:TActiveLinkButton ID="btnDelete" Text="<i class='icon-trash'></i>" OnClick="Page.deleteRecord" ClientSide.PostState="false" Attributes.OnClick="if(!confirm('Apakah Anda ingin menghapus data URAIAN ini ?')) return false;" Attributes.Title="Hapus Data KELOMPOK">
+                                            <prop:ClientSide.OnPreDispatch>         
+                                                Pace.stop();
+                                                Pace.start();                                                 
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',true);
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',true);                   
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.OnComplete>                                                                    
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',false);                                                                                                                
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </li>                                
+                                </ul>
+                            </td>                                                                            
+                        </tr>
+                    </prop:ItemTemplate>                            
+                    <prop:FooterTemplate>
+                        <tbody>
+                        </table>        
+                    </prop:FooterTemplate>  
+                    <prop:EmptyTemplate>                            
+                        <div class="panel-body">
+                            <div class="alert alert-info alert-styled-left alert-bordered">
+                                <span class="text-semibold">Info!</span>
+                                Belum ada data yang bisa ditampilkan.
+                            </div>                
+                        </div>
+                    </prop:EmptyTemplate>
+                </com:TActiveRepeater>  
+                <%include Application.layouts.default.CustomPaging%> 
+            </div>
+        </div>
+    </div>    
+</com:TPanel>
+</com:TContent>

@@ -1,0 +1,72 @@
+<%@ Title="SSH - Login" %>
+<com:TContent ID="maincontent">
+<div class="page-container">
+    <div class="page-content">
+        <div class="content-wrapper">
+            <com:TPanel Visible="<%=$this->User->isGuest==true%>" CssClass="panel panel-body login-form">
+                <div class="text-center">
+                    <div class="margin-top-20">
+                        <img src="<%=$this->Page->setup->getAddress()%>/resources/logokepri.png" style="width:35%;">
+                    </div>
+                    <h5 class="content-group">Login ke Aplikasi SSH <small class="display-block">Silahkan login menggunakan username dan password yang telah ditentukan.</small></h5>
+                </div>
+                <div class="form-group has-feedback has-feedback-left" id="divUsername">    
+                    <com:TTextBox ID="txtUsername" CssClass="form-control simple-form-control" Attributes.Placeholder="Username" />
+                    <div class="form-control-feedback">
+                        <i class="icon-user text-muted"></i>
+                    </div>
+                    <com:TRequiredFieldValidator ID="IsUsernameFilledValidator" ControlToValidate="txtUsername" Display="Dynamic" Text="Isi username !!!" ValidationGroup="userlogin" CssClass="has-error help-block" FocusOnError="true">
+                        <prop:ClientSide.OnValidationError>
+                            $('#divUsername').addClass('has-error');
+                            $('#<%=$this->IsUsernameFilledValidator->ClientID%>').removeAttr('style');
+                        </prop:ClientSide.OnValidationError>
+                        <prop:ClientSide.OnValidationSuccess>
+                            $('#divUsername').removeClass('has-error');
+                        </prop:ClientSide.OnValidationSuccess>
+                    </com:TRequiredFieldValidator>
+                </div>
+                <div class="form-group has-feedback has-feedback-left" id="divUserpassword">
+                    <com:TTextBox ID="txtPassword" TextMode="Password" CssClass="form-control simple-form-control" Attributes.Placeholder="Password"/>
+                    <div class="form-control-feedback">
+                        <i class="icon-lock2 text-muted"></i>
+                    </div>
+                    <com:TRequiredFieldValidator ID="IsPasswordFilledValidator" ControlToValidate="txtPassword" Display="Dynamic" Text="Isi Password !!!" ValidationGroup="userlogin" CssClass="has-error help-block" FocusOnError="true">
+                        <prop:ClientSide.OnValidationError>
+                            $('#divUserpassword').addClass('has-error');
+                            $('#<%=$this->IsPasswordFilledValidator->ClientID%>').removeAttr('style');
+                        </prop:ClientSide.OnValidationError>
+                        <prop:ClientSide.OnValidationSuccess>
+                            $('#divUserpassword').removeClass('has-error');
+                        </prop:ClientSide.OnValidationSuccess>
+                    </com:TRequiredFieldValidator>
+                </div>
+                <div class="form-group"> 
+                    <com:TActiveButton ID="btnLogin" CssClass="btn btn-primary btn-block" ValidationGroup="userlogin" Onclick="doLogin">                            
+                        <prop:Text>
+                            Login
+                        </prop:Text>
+                        <prop:ClientSide.OnPreDispatch>                            
+                            Pace.stop();
+                            Pace.start();
+                            $('#<%=$this->btnLogin->ClientId%>').prop('disabled',true);						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('#<%=$this->btnLogin->ClientId%>').prop('disabled',true);									                                    
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.onComplete>                                    
+                            $('#<%=$this->btnLogin->ClientId%>').prop('disabled',false);																								                                                                                                                
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveButton>
+                </div>
+                <div class="text-center">    
+                    <com:TActiveCustomValidator ControlToValidate="txtUsername" Display="Dynamic" OnServerValidate="checkUsernameAndPassword" ValidationGroup="userlogin" />
+                </div>
+            </com:TPanel>            
+            <com:TPanel Visible="<%=$this->User->isGuest==false%>" CssClass="panel panel-body login-form">
+                You have logged in, click <a href="<%=$this->Page->constructUrl('Home',true)%>">here</a> back to the dashboard.
+            </com:TPanel>
+        </div>
+    </div>
+</div>  
+<com:TJavascriptLogger ID="loggerJS" />
+</com:TContent>

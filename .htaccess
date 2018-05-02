@@ -1,0 +1,15 @@
+Options +FollowSymLinks
+
+# Prevent direct access to certain files
+<FilesMatch ^(composer\.(json|lock)$)$>
+    Deny from all
+</FilesMatch> 
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteRule ^(.*/)*\.git/ / [F,L]
+
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
