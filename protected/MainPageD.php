@@ -1,14 +1,9 @@
 <?php
-
-class MainPageM extends MainPage {
+class MainPageD extends MainPage {
     /**
     * tab Satuan [rekening]
     */
-    public $showSatuan=false;
-    /**     
-     * show page unitkerja fungsional [data master]
-     */
-    public $showUnitKerja=false;
+    public $showSatuan=false;      
 	/**     
      * show page rekening [dmaster]
      */
@@ -44,27 +39,12 @@ class MainPageM extends MainPage {
     /**     
      * show menu data uraian
      */
-    public $showDataUraian=false;
+    public $showDataUraian=false; 
     /**     
      * show menu data usulan
      */
-    public $showDataUsulan=false;
-    /**     
-     * show menu setting
-     */
-    public $showSetting=false;   
-    /**     
-     * show page user biro ortal[setting]
-     */
-    public $showUserBiroOrtal=false;
-    /**     
-     * show page user opd[setting]
-     */
-    public $showUserOPD=false;
-    /**     
-     * show page cache[setting]
-     */
-    public $showCache=false;
+    public $showDataUsulan=false;    
+   
 	public function onLoad ($param) {		
 		parent::onLoad($param);	
 	}

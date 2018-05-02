@@ -100,12 +100,12 @@ class Logic_DMaster extends Logic_Global {
         if ($this->Application->Cache) {            
             $dataitem=$this->Application->Cache->get('listunitkerja');            
             if (!isset($dataitem['none'])) {
-                $dataitem=$this->getList('unit',array('kode_unit','nama_unit'),'kode_unit',null,7);
+                $dataitem=$this->getList('unit',array('idunit','kode_unit','nama_unit'),'kode_unit',null,8);
                 $dataitem['none']='DAFTAR OPD';    
                 $this->Application->Cache->set('listunitkerja',$dataitem);
             }
         }else {                        
-            $dataitem=$this->getList('unit',array('kode_unit','nama_unit'),'kode_unit',null,7);
+            $dataitem=$this->getList('unit',array('idunit','kode_unit','nama_unit'),'kode_unit',null,8);
             $dataitem['none']='DAFTAR OPD';    
         }
         return $dataitem;        
