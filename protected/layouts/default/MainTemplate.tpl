@@ -195,7 +195,7 @@
                         </li>                    
                         <li<%=$this->Page->showUserOPD==true?' class="active"':''%>>
                             <a href="<%=$this->Page->constructUrl('settings.UserOPD',true)%>">
-                                <i class="icon-user"></i> Organisasi Perangkat Daerah
+                                <i class="icon-users"></i> Organisasi Perangkat Daerah
                             </a>
                         </li>    
                         <li class="dropdown-header">Sistem</li>                       
