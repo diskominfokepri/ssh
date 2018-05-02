@@ -156,9 +156,16 @@
                         <i class="icon-align-left position-left"></i> DATA <span class="caret"></span>
                     </a>                
                     <ul class="dropdown-menu width-300">
+                        <li class="dropdown-header">URAIAN</li>                        
                         <li<%=$this->Page->showDataUraian==true?' class="active"':''%>>
                             <a href="<%=$this->Page->constructUrl('data.Uraian',true)%>">
                                 <i class="icon-usb-stick"></i> Uraian Barang/Peralatan
+                            </a>
+                        </li>
+                        <li class="dropdown-header">USULAN</li>                       
+                        <li<%=$this->Page->showCache==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('data.Usulan',true)%>">
+                                <i class="icon-usb-stick"></i> Usulan Barang/Peralatan
                             </a>
                         </li>                                            
                     </ul>
@@ -201,7 +208,89 @@
                 </li>
             </com:TLiteral>
             <com:TLiteral Visible="<%=$this->Page->Pengguna->getTipeUser()=='d'%>">
-            
+                <li class="dropdown mega-menu mega-menu-wide<%=$this->Page->showDMaster==true?' active':''%> visible">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-puzzle4 position-left"></i> DATA MASTER <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-content">
+                        <div class="dropdown-content-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span class="menu-heading underlined"><i class="icon-grid2"></i> FUNGSIONAL</span>
+                                    <ul class="menu-list">
+                                        <li<%=$this->Page->showSatuan==true?' class="active"':''%>>
+                                            <a href="<%=$this->Page->constructUrl('dmaster.Satuan',true)%>" title="Transaksi">
+                                                <i class="icon-grid2"></i> 
+                                                Satuan
+                                            </a>
+                                        </li>                                        
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <span class="menu-heading underlined"><i class="icon-calculator4"></i> REKENING</span>
+                                    <ul class="menu-list">
+                                        <li<%=$this->Page->showTransaksi==true?' class="active"':''%>>
+                                            <a href="<%=$this->Page->constructUrl('dmaster.Transaksi',true)%>" title="Transaksi">
+                                                <i class="icon-calculator2"></i> 
+                                                Transaksi
+                                            </a>
+                                        </li>
+                                        <li<%=$this->Page->showKelompok==true?' class="active"':''%>>
+                                            <a href="<%=$this->Page->constructUrl('dmaster.Kelompok',true)%>">
+                                                <i class="icon-calculator2"></i> 
+                                                Kelompok
+                                            </a>
+                                        </li>
+                                        <li<%=$this->Page->showJenis==true?' class="active"':''%>>
+                                            <a href="<%=$this->Page->constructUrl('dmaster.Jenis',true)%>">
+                                                <i class="icon-calculator2"></i> 
+                                                Jenis
+                                            </a>
+                                        </li>
+                                        <li<%=$this->Page->showRincian==true?' class="active"':''%>>
+                                            <a href="<%=$this->Page->constructUrl('dmaster.Rincian',true)%>">
+                                                <i class="icon-calculator2"></i> 
+                                                Rincian
+                                            </a>
+                                        </li>
+                                        <li<%=$this->Page->showObjek==true?' class="active"':''%>>
+                                            <a href="<%=$this->Page->constructUrl('dmaster.Objek',true)%>">
+                                                <i class="icon-calculator2"></i> 
+                                                Objek Barang/Peralatan
+                                            </a>
+                                        </li> 
+                                        <li<%=$this->Page->showObjekTransportasi==true?' class="active"':''%>>
+                                            <a href="<%=$this->Page->constructUrl('dmaster.ObjekTransportasi',true)%>">
+                                                <i class="icon-calculator2"></i> 
+                                                Objek Transportasi
+                                            </a>
+                                        </li>              
+                                    </ul>
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown visible<%=$this->Page->showData==true?' active':''%>">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-align-left position-left"></i> DATA <span class="caret"></span>
+                    </a>                
+                    <ul class="dropdown-menu width-300">
+                        <li class="dropdown-header">URAIAN</li>                        
+                        <li<%=$this->Page->showDataUraian==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('data.Uraian',true)%>">
+                                <i class="icon-usb-stick"></i> Uraian Barang/Peralatan
+                            </a>
+                        </li>
+                        <li class="dropdown-header">USULAN</li> 
+                        <li<%=$this->Page->showDataUsulan==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('data.Usulan',true)%>">
+                                <i class="icon-usb-stick"></i> Usulan Barang/Peralatan
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
             </com:TLiteral>
         </ul>
     </div>
