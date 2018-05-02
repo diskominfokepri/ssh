@@ -323,7 +323,7 @@ class Logic_Setup extends Logic_Global {
      * @return boolean
      */
     public function createZIP($files = array(),$destination = '',$overwrite = true) {
-        //if the zip file already exists and overwrite is false, return false
+        // if the zip file already exists and overwrite is false, return false
         if(file_exists($destination) && !$overwrite) { return false; }
         //vars
         $valid_files = array();

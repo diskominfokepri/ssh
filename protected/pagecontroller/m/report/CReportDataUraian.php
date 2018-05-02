@@ -273,7 +273,7 @@ class CReportDataUraian extends MainPageM {
         $this->report->setDataReport($dataReport); 
         $this->report->setMode('excel2007');
         
-        $this->report->printDataUraian();
+        $this->report->printDataUraian($this->DMaster);
         
         $this->labelPrintOut->Text="Report Data Harga Barang / Peralatan T.A $tahun";
         $this->DialogPrintOut->Open();
