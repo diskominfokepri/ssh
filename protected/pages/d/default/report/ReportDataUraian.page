@@ -1,0 +1,114 @@
+<%@ Title="Report - Uraian Barang/Peralatan" %>
+<com:TContent ID="moduleheader">
+    <i class="icon-file-text3 position-left"></i> <span class="text-semibold">URAIAN BARANG/PERALATAN</span>
+</com:TContent>
+<com:TContent ID="modulebreadcrumb">
+    <li><a href="#">REPORT</a></li>    
+    <li class="active">URAIAN BARANG/PERALATAN</li>
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getViewProcess(false) %>" CssClass="content">
+    <div class="panel panel-flat">
+        <div class="panel-heading">            
+            <h5 class="panel-title">&nbsp;</h5>
+            <div class="heading-elements">
+               
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="alert alert-warning">
+                <i class="fa fa-info-circle fa-fw fa-lg"></i>
+                <strong>
+                    Info!
+                </strong>
+                 <com:TLiteral ID="errorMessage" />
+            </div>
+            <div class="form-horizontal"> 
+                <div class="form-group">
+                    <label class="control-label col-md-2">Rekening:</label>
+                    <div class="col-md-10">
+                        <com:TActiveDropDownList ID="cmbViewTransaksi" OnCallBack="changeRekening" CssClass="form-control">
+                            <prop:ClientSide.OnLoading>     
+                                Pace.stop();
+                                Pace.start();
+                                $('#<%=$this->cmbViewTransaksi->ClientId%>').prop('disabled',true); 
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>     
+                                $('#<%=$this->cmbViewTransaksi->ClientId%>').prop('disabled',false);
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveDropDownList>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-flat border-top-lg border-top-info border-bottom-info">
+                <div class="panel-heading">
+                    <h5 class="panel-title"><i class="icon-bookmark2 position-left"></i> Filter Data</h5>
+                    <div class="heading-elements">                       
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li> 
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Rekening :</label> 
+                            <div class="col-md-10">
+                                <com:TActiveDropDownList ID="cmbTransaksi" OnCallBack="changeRekening" CssClass="form-control">
+                                    <prop:ClientSide.OnLoading>     
+                                        Pace.stop();
+                                        Pace.start();
+                                        $('#<%=$this->cmbViewTransaksi->ClientId%>').prop('disabled',true); 
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.OnComplete>     
+                                        $('#<%=$this->cmbViewTransaksi->ClientId%>').prop('disabled',false);
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveDropDownList>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title"><i class="icon-file-empty position-left"></i>  <strong> DAFTAR HARGA BARANG/PERALATAN TAHUN <com:TActiveLabel ID="lblmoduleheader" /></strong></h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li>
+                                <com:TActiveLinkButton OnClick="Page.printOut" ID="btnPrint" ClientSide.PostState="false" Attributes.Title="Print Form A" Attributes.data-action="printout">
+                                    <prop:ClientSide.OnPreDispatch>
+                                        $('#<%=$this->btnPrint->ClientId%>').prop('disabled',true);
+                                        Pace.stop();
+                                        Pace.start();
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('#<%=$this->btnPrint->ClientId%>').prop('disabled',true);
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.onComplete>
+                                        $('#<%=$this->btnPrint->ClientId%>').prop('disabled',false);
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveLinkButton>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <com:TLiteral ID="contentReport" />
+                </div>
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+<%include Application.layouts.default.ModalPrintOut%>
+</com:TContent>
+

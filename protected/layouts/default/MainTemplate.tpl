@@ -291,6 +291,18 @@
 
                     </ul>
                 </li>
+                <li class="dropdown visible<%=$this->Page->showReport==true?' active':''%>">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-file-empty position-left"></i> REPORT <span class="caret"></span>
+                    </a>                
+                    <ul class="dropdown-menu width-300">
+                        <li<%=$this->Page->showReportDataUraian==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('report.ReportDataUraian',true)%>">
+                                <i class="icon-file-text3"></i> Uraian Barang/Peralatan
+                            </a>
+                        </li>                                            
+                    </ul>
+                </li>
             </com:TLiteral>
         </ul>
     </div>
