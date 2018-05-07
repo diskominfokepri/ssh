@@ -4,7 +4,6 @@ class CUraian extends MainPageM {
 	public function onLoad ($param) {		
 		parent::onLoad ($param);	
         $this->createObj('DMaster');
-        $this->createObj('Kegiatan');
         $this->showDataUraian=true;
 		if (!$this->IsCallback&&!$this->IsPostBack) {    
             if (!isset($_SESSION['currentPageUraian'])||$_SESSION['currentPageUraian']['page_name']!='m.data.Uraian') {
