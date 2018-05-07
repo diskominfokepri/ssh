@@ -88,8 +88,7 @@
 <div class="page-container">    
     <div class="page-content">
         <com:TContentPlaceHolder ID="sidebarcontent" />
-        <div class="content-wrapper">
-            
+        <div class="content-wrapper">            
             <com:TContentPlaceHolder ID="maincontent" />
             <com:TJavascriptLogger />
         </div>        

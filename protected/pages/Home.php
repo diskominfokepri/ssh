@@ -7,10 +7,16 @@ class Home extends MainPageF {
         $this->createObj('DMaster');
 		if (!$this->IsPostBack&&!$this->IsCallBack) {              
             if (!isset($_SESSION['currentPageHomeF'])||$_SESSION['currentPageHomeF']['page_name']!='Home') {
-                $_SESSION['currentPageHomeF']=array('page_name'=>'Home','page_num'=>0,'modeuraian'=>'barang_jasa');												
+                $_SESSION['currentPageHomeF']=array('page_name'=>'Home','page_num'=>0,'modeuraian'=>'barang_jasa','ta'=>$this->setup->getSettingValue('default_ta'));												
 			} 
 			$_SESSION['currentPageHomeF']['search']=false;
 			$this->cmbKriteria->Text=$_SESSION['currentPageHomeF']['modeuraian'];
+			
+			$ta=$_SESSION['currentPageHomeF']['ta'];
+            $daftar_ta=$this->DMaster->getListTahunAnggaran();
+            $this->cmbTA->DataSource=$this->DMaster->removeIdFromArray($daftar_ta,'none');
+            $this->cmbTA->Text=$ta;
+            $this->cmbTA->dataBind();
 
 			$this->populateData();
 		}                
@@ -19,18 +25,22 @@ class Home extends MainPageF {
 		$_SESSION['currentPageHomeF']['modeuraian']=$this->cmbKriteria->Text;
 		$this->populateData();
 	}  
+	public function changeModeTA ($sender,$param) {
+		$_SESSION['currentPageHomeF']['ta']=$this->cmbTA->Text;
+		$this->populateData();
+	}  
 	public function renderCallback ($sender,$param) {
 		$this->RepeaterS->render($param->NewWriter);	
 	}	
 	public function Page_Changed ($sender,$param) {
-		$_SESSION['currentPageUraian']['page_num']=$param->NewPageIndex;
+		$_SESSION['currentPageHomeF']['page_num']=$param->NewPageIndex;
 		$this->populateData($_SESSION['currentPageHomeF']['search']);
 	} 
 	public function renderCallbackTransport ($sender,$param) {
 		$this->RepeaterS->render($param->NewWriter);	
 	}	
 	public function Page_ChangedTransport ($sender,$param) {
-		$_SESSION['currentPageUraian']['page_num']=$param->NewPageIndex;
+		$_SESSION['currentPageHomeF']['page_num']=$param->NewPageIndex;
 		$this->populateData($_SESSION['currentPageHomeF']['search']);
 	} 
 	public function doSearch($sender,$param) {
@@ -38,7 +48,7 @@ class Home extends MainPageF {
 		$this->populateData($_SESSION['currentPageHomeF']['search']);
 	}
 	public function populateData ($search=false) {
-		$tahun=$this->setup->getSettingValue('default_ta'); ;
+		$tahun=$_SESSION['currentPageHomeF']['ta'];
 		$modeuraian=$_SESSION['currentPageHomeF']['modeuraian'];
 		if ($search) {
 			$txtsearch=addslashes($this->txtSearch->Text);

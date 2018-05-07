@@ -12,6 +12,19 @@
 			<i class="icon-search4"></i>
 			Cari Barang
 		</h5>
+        <div class="heading-elements">            
+            <com:TActiveDropDownList ID="cmbTA" CssClass="form-control" OnCallback="changeModeTA">                
+                <prop:ClientSide.OnLoading>
+                    Pace.stop();
+                    Pace.start();
+                    $('#<%=$this->cmbTA->ClientId%>').prop('disabled',true);                                                                      
+                </prop:ClientSide.OnLoading>
+                <prop:ClientSide.onComplete>                                    
+                    $('#<%=$this->cmbTA->ClientId%>').prop('disabled',false);                                                                                                                                                                                                             
+                </prop:ClientSide.OnComplete>
+            </com:TActiveDropDownList>      
+                
+        </div>
 	</div>
 	<div class="panel-body">
 		<div class="main-search">
@@ -29,6 +42,7 @@
                     </prop:ClientSide.OnComplete>
                 </com:TActiveDropDownList>					
 			</div>
+            <br/>
 			<div class="input-group content-group">				
 				<div class="has-feedback has-feedback-left" id="divSearch">					
 					<com:TTextBox ID="txtSearch" CssClass="form-control input-xlg" />
