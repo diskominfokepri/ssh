@@ -175,7 +175,7 @@
                         </li>
                         <li<%=$this->Page->showDataUsulanBarang==true?' class="active"':''%>>
                             <a href="<%=$this->Page->constructUrl('data.UsulanBarang',true)%>">
-                                <i class="icon-usb-stick"></i> Usulan Barang/Peralatan
+                                <i class="icon-usb-stick"></i> Usulan Nama Barang/Peralatan
                             </a>
                         </li>     
                         <li class="dropdown-header">USULAN TRANSPORTASI</li>                       
