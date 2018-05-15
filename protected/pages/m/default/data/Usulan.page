@@ -1,6 +1,6 @@
 <%@ Title="Data - Usulan" %>
 <com:TContent ID="moduleheader">
-    <i class="icon-task position-left"></i> <span class="text-semibold">Usulan</span>
+    <i class="icon-task position-left"></i> <span class="text-semibold">Usulan Harga</span>
 </com:TContent>
 <com:TContent ID="modulebreadcrumb">    
     <li><a href="#">DATA</a></li>
@@ -257,7 +257,7 @@
     <div class="col-md-12">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title"><i class="icon-task"></i> DAFTAR Usulan <com:TActiveLabel ID="lblmoduleheader" /></h5>
+                <h5 class="panel-title"><i class="icon-task"></i> DAFTAR USULAN HARGA <com:TActiveLabel ID="lblmoduleheader" /></h5>
                 <div class="heading-elements">
                     <div class="heading-btn">                    
                         <a href="<%=$this->constructUrl('data.TambahUsulan',true)%>" class="btn btn-info btn-xs" title="Tambah Usulan">

@@ -162,12 +162,28 @@
                                 <i class="icon-usb-stick"></i> Uraian Barang/Peralatan
                             </a>
                         </li>
-                        <li class="dropdown-header">USULAN</li>                       
-                        <li<%=$this->Page->showCache==true?' class="active"':''%>>
+                        <li<%=$this->Page->showDataUraianTransportasi==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('data.UraianTransportasi',true)%>">
+                                <i class="icon-usb-stick"></i> Uraian Transportasi
+                            </a>
+                        </li>
+                        <li class="dropdown-header">USULAN BARANG/PERALATAN</li>                       
+                        <li<%=$this->Page->showDataUsulan==true?' class="active"':''%>>
                             <a href="<%=$this->Page->constructUrl('data.Usulan',true)%>">
+                                <i class="icon-usb-stick"></i> Usulan Harga
+                            </a>
+                        </li>
+                        <li<%=$this->Page->showDataUsulanBarang==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('data.UsulanBarang',true)%>">
                                 <i class="icon-usb-stick"></i> Usulan Barang/Peralatan
                             </a>
-                        </li>                                            
+                        </li>     
+                        <li class="dropdown-header">USULAN TRANSPORTASI</li>                       
+                        <li<%=$this->Page->showDataUsulanTransportasi==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('data.UsulanTransportasi',true)%>">
+                                <i class="icon-usb-stick"></i> Usulan Transportasi
+                            </a>
+                        </li>                                                                      
                     </ul>
                 </li>
                 <li class="dropdown visible<%=$this->Page->showReport==true?' active':''%>">
@@ -179,7 +195,12 @@
                             <a href="<%=$this->Page->constructUrl('report.ReportDataUraian',true)%>">
                                 <i class="icon-file-text3"></i> Uraian Barang/Peralatan
                             </a>
-                        </li>                                            
+                        </li>  
+                        <li<%=$this->Page->showReportDataUraianTransportasi==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('report.ReportDataUraianTransportasi',true)%>">
+                                <i class="icon-file-text3"></i> Uraian Transportasi
+                            </a>
+                        </li>                                           
                     </ul>
                 </li>
                 <li class="dropdown visible<%=$this->Page->showSetting==true?' active':''%>">
@@ -195,7 +216,7 @@
                         </li>                    
                         <li<%=$this->Page->showUserOPD==true?' class="active"':''%>>
                             <a href="<%=$this->Page->constructUrl('settings.UserOPD',true)%>">
-                                <i class="icon-users"></i> Organisasi Perangkat Daerah
+                                <i class="icon-user"></i> Organisasi Perangkat Daerah
                             </a>
                         </li>    
                         <li class="dropdown-header">Sistem</li>                       
@@ -282,13 +303,28 @@
                                 <i class="icon-usb-stick"></i> Uraian Barang/Peralatan
                             </a>
                         </li>
+                        <li<%=$this->Page->showDataUraianTransportasi==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('data.UraianTransportasi',true)%>">
+                                <i class="icon-usb-stick"></i> Uraian Transportasi
+                            </a>
+                        </li>
                         <li class="dropdown-header">USULAN</li> 
                         <li<%=$this->Page->showDataUsulan==true?' class="active"':''%>>
                             <a href="<%=$this->Page->constructUrl('data.Usulan',true)%>">
+                                <i class="icon-usb-stick"></i> Usulan Harga
+                            </a>
+                        </li>
+                        <li<%=$this->Page->showDataUsulanBarang==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('data.UsulanBarang',true)%>">
                                 <i class="icon-usb-stick"></i> Usulan Barang/Peralatan
                             </a>
                         </li>
-
+                        <li class="dropdown-header">USULAN TRANSPORTASI</li>                       
+                        <li<%=$this->Page->showDataUsulanTransportasi==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('data.UsulanTransportasi',true)%>">
+                                <i class="icon-usb-stick"></i> Usulan Transportasi
+                            </a>
+                        </li>        
                     </ul>
                 </li>
                 <li class="dropdown visible<%=$this->Page->showReport==true?' active':''%>">
@@ -300,7 +336,12 @@
                             <a href="<%=$this->Page->constructUrl('report.ReportDataUraian',true)%>">
                                 <i class="icon-file-text3"></i> Uraian Barang/Peralatan
                             </a>
-                        </li>                                            
+                        </li>   
+                        <li<%=$this->Page->showReportDataUraianTransportasi==true?' class="active"':''%>>
+                            <a href="<%=$this->Page->constructUrl('report.ReportDataUraianTransportasi',true)%>">
+                                <i class="icon-file-text3"></i> Uraian Transportasi
+                            </a>
+                        </li>                                                         
                     </ul>
                 </li>
             </com:TLiteral>

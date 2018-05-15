@@ -7,8 +7,8 @@ class CUsulan extends MainPageD {
         $this->createObj('Kegiatan');
         $this->showDataUsulan=true;
         if (!$this->IsCallback&&!$this->IsPostBack) {    
-            if (!isset($_SESSION['currentPageUsulan'])||$_SESSION['currentPageUsulan']['page_name']!='m.data.Usulan') {
-                $_SESSION['currentPageUsulan']=array('page_name'=>'m.data.Usulan','page_num'=>0,'search'=>false);                                               
+            if (!isset($_SESSION['currentPageUsulan'])||$_SESSION['currentPageUsulan']['page_name']!='d.data.Usulan') {
+                $_SESSION['currentPageUsulan']=array('page_name'=>'d.data.Usulan','page_num'=>0,'search'=>false);                                               
             } 
             $_SESSION['currentPageUsulan']['search']=false;
             
@@ -47,7 +47,7 @@ class CUsulan extends MainPageD {
         $idunit = $this->Pengguna->getDataUser('idunit');
         $tahun=$_SESSION['ta'];
         if ($search) {
-            $str = "SELECT us.idusulan,us.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,us.batam,us.bintan,us.tanjungpinang,us.karimun,us.lingga,us.natuna,us.anambas FROM usulan us,rek5 WHERE rek5.no_rek5=us.rekening AND us.ta=$tahun and ";    
+            $str = "SELECT us.idusulan,us.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,us.batam,us.bintan,us.tanjungpinang,us.karimun,us.lingga,us.natuna,us.anambas FROM usulan us,rek5 WHERE rek5.no_rek5=us.rekening AND us.ta=$tahun AND idunit='$idunit' ";    
             $str_jumlah="usulan us,proyek_m pm WHERE pm.idproyek=us.idproyek AND pm.tahun_anggaran=$tahun";
             $txtsearch=addslashes($this->txtKriteria->Text);
             switch ($this->cmbKriteria->Text) {
@@ -78,7 +78,7 @@ class CUsulan extends MainPageD {
             }
             $jumlah_baris=$this->DB->getCountRowsOfTable ($str_jumlah,'us.idusulan');   
         }else{
-            $str = "SELECT us.idusulan,us.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,us.batam,us.bintan,us.tanjungpinang,us.karimun,us.lingga,us.natuna,us.anambas FROM usulan us,rek5 WHERE rek5.no_rek5=us.rekening AND us.ta=$tahun AND idunit='$idunit'";    
+            $str = "SELECT us.idusulan,us.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,us.batam,us.bintan,us.tanjungpinang,us.karimun,us.lingga,us.natuna,us.anambas FROM usulan us,rek5 WHERE rek5.no_rek5=us.rekening AND us.ta=$tahun AND idunit='$idunit' AND status=0";    
             $jumlah_baris=$this->DB->getCountRowsOfTable ("usulan us WHERE us.ta=$tahun",'us.idusulan');    
         }
         $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPageUsulan']['page_num'];

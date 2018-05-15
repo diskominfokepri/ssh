@@ -78,8 +78,8 @@ class CUsulan extends MainPageM {
             }
             $jumlah_baris=$this->DB->getCountRowsOfTable ($str_jumlah,'us.idusulan');	
         }else{
-            $str = "SELECT us.idusulan,us.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,us.batam,us.bintan,us.tanjungpinang,us.karimun,us.lingga,us.natuna,us.anambas, us.status, un.nama_unit FROM usulan us, unit un,rek5 WHERE rek5.no_rek5=us.rekening AND us.ta=$tahun AND us.idunit=un.idunit";    
-            $jumlah_baris=$this->DB->getCountRowsOfTable ("usulan us WHERE us.ta=$tahun",'us.idusulan');	
+            $str = "SELECT us.idusulan,us.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,us.batam,us.bintan,us.tanjungpinang,us.karimun,us.lingga,us.natuna,us.anambas, us.status, un.nama_unit FROM usulan us, unit un,v_rekening rek5 WHERE rek5.no_rek5=us.rekening AND us.ta=$tahun AND us.idunit=un.idunit AND rek5.id_tipe=1";    
+            $jumlah_baris=$this->DB->getCountRowsOfTable ("usulan us, v_rekening rek5 WHERE us.ta=$tahun AND rek5.no_rek5=us.rekening AND rek5.id_tipe=1 ",'us.idusulan');	
         }
         $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPageUsulan']['page_num'];
 		$this->RepeaterS->VirtualItemCount=$jumlah_baris;

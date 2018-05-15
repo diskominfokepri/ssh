@@ -46,9 +46,25 @@ class MainPageM extends MainPage {
      */
     public $showDataUraian=false;
     /**     
+     * show menu data uraian transportasi
+     */
+    public $showDataUraianTransportasi=false;
+    /**     
+     * show menu data uraian transportasi
+     */
+    public $showReportDataUraianTransportasi=false;
+    /**     
      * show menu data usulan
      */
     public $showDataUsulan=false;
+    /**     
+     * show menu data usulan transportasi
+     */
+    public $showDataUsulanTransportasi=false;
+    /**     
+     * show menu data usulan barang
+     */
+    public $showDataUsulanBarang=false;
     /**     
      * show menu setting
      */

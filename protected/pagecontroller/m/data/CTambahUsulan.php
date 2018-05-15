@@ -163,13 +163,13 @@ class CTambahUsulan extends MainPageM {
             
             $this->Pengguna->insertNewActivity($this->Page->getPagePath(),"Menambah uraian baru dengan Rekening  ($no_rekening) telah berhasil dilakukan");
             
-            $this->redirect('data.TambahUraian', true);
+            $this->redirect('data.TambahUsulan', true);
         }
     }
     public function lanjutInput($sender,$param) {
         if ($this->IsValid) {
             $no_rek5=$sender->Text;
-            $this->redirect('data.TambahUraian', true,array('id'=>$no_rek5));   
+            $this->redirect('data.TambahUsulan', true,array('id'=>$no_rek5));   
         }
     }
 }
