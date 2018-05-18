@@ -18,12 +18,20 @@ class Home extends MainPageF {
             $this->cmbTA->Text=$ta;
             $this->cmbTA->dataBind();
 
+            switch ($modeuraian) {
+				case 'barang_jasa' :
+					$this->RepeaterTransport->Visible=false;
+				break;
+				case 'transportasi' :
+					$this->RepeaterS->Visible=false;
+				break;
+			}
 			$this->populateData();
 		}                
 	}
 	public function changeModeUraian ($sender,$param) {
 		$_SESSION['currentPageHomeF']['modeuraian']=$this->cmbKriteria->Text;
-		$this->populateData();
+		$this->redirect("Home");
 	}  
 	public function changeModeTA ($sender,$param) {
 		$_SESSION['currentPageHomeF']['ta']=$this->cmbTA->Text;
@@ -44,8 +52,13 @@ class Home extends MainPageF {
 		$this->populateData($_SESSION['currentPageHomeF']['search']);
 	} 
 	public function doSearch($sender,$param) {
-		$_SESSION['currentPageHomeF']['search']=true;
-		$this->populateData($_SESSION['currentPageHomeF']['search']);
+		if(addslashes($this->txtSearch->Text) == '')
+		{
+			$this->populateData();
+		}else {
+			$_SESSION['currentPageHomeF']['search']=true;
+			$this->populateData($_SESSION['currentPageHomeF']['search']);
+		}
 	}
 	public function populateData ($search=false) {
 		$tahun=$_SESSION['currentPageHomeF']['ta'];
@@ -90,8 +103,7 @@ class Home extends MainPageF {
 		}
 		if ($limit < 0) {$offset=0;$limit=10;$_SESSION['currentPageHomeF']['page_num']=0;}
         $str = "$str ORDER BY um.rating DESC,um.rekening ASC LIMIT $offset,$limit";
-		$r=$this->DB->getRecord($str);		
-                
+		$r=$this->DB->getRecord($str);	
         $repeaters->DataSource=$r;
         $repeaters->dataBind();
 

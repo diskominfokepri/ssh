@@ -7,11 +7,11 @@
 </com:TContent>
 <com:TContent ID="maincontent">
 <div class="panel panel-flat">
-	<div class="panel-heading">
-		<h5 class="panel-title">
-			<i class="icon-search4"></i>
-			Cari Barang
-		</h5>
+    <div class="panel-heading">
+        <h5 class="panel-title">
+            <i class="icon-search4"></i>
+            Cari Barang
+        </h5>
         <div class="heading-elements">            
             <com:TActiveDropDownList ID="cmbTA" CssClass="form-control" OnCallback="changeModeTA">                
                 <prop:ClientSide.OnLoading>
@@ -25,63 +25,54 @@
             </com:TActiveDropDownList>      
                 
         </div>
-	</div>
-	<div class="panel-body">
-		<div class="main-search">
-			<div class="has-feedback has-feedback-left">										
-				<com:TActiveDropDownList ID="cmbKriteria" CssClass="form-control" OnCallback="changeModeUraian">
+    </div>
+    <div class="panel-body">
+        <div class="main-search">
+            <div class="has-feedback has-feedback-left">                                        
+                <com:TActiveDropDownList ID="cmbKriteria" CssClass="form-control" OnCallback="changeModeUraian">
                     <com:TListItem Value="barang_jasa" Text="BARANG/JASA" />
                     <com:TListItem Value="transportasi" Text="TRANSPORTASI" />                   
                     <prop:ClientSide.OnLoading>
-                    	Pace.stop();
+                        Pace.stop();
                         Pace.start();
-                        $('#<%=$this->cmbKriteria->ClientId%>').prop('disabled',true);									                                    
+                        $('#<%=$this->cmbKriteria->ClientId%>').prop('disabled',true);                                                                      
                     </prop:ClientSide.OnLoading>
                     <prop:ClientSide.onComplete>                                    
-                        $('#<%=$this->cmbKriteria->ClientId%>').prop('disabled',false);																								                                                                                                                
+                        $('#<%=$this->cmbKriteria->ClientId%>').prop('disabled',false);                                                                                                                                                                                                             
                     </prop:ClientSide.OnComplete>
-                </com:TActiveDropDownList>					
-			</div>
+                </com:TActiveDropDownList>                  
+            </div>
             <br/>
-			<div class="input-group content-group">				
-				<div class="has-feedback has-feedback-left" id="divSearch">					
-					<com:TTextBox ID="txtSearch" CssClass="form-control input-xlg" />
-					<div class="form-control-feedback">
-						<i class="icon-search4 text-muted text-size-base"></i>
-					</div>
-					<com:TRequiredFieldValidator ID="IsSearchFilledValidator" ControlToValidate="txtSearch" Display="Dynamic" Text="Isi Password !!!" ValidationGroup="frmSearch" CssClass="has-error help-block" FocusOnError="true">
-                        <prop:ClientSide.OnValidationError>
-                            $('#divSearch').addClass('has-error');
-                            $('#<%=$this->IsSearchFilledValidator->ClientID%>').removeAttr('style');
-                        </prop:ClientSide.OnValidationError>
-                        <prop:ClientSide.OnValidationSuccess>
-                            $('#divSearch').removeClass('has-error');
-                        </prop:ClientSide.OnValidationSuccess>
-                    </com:TRequiredFieldValidator>
-				</div>
-				<div class="input-group-btn">
-					<com:TActiveButton ID="btnSearch" CssClass="btn btn-primary btn-xlg" ValidationGroup="frmSearch" Onclick="doSearch">                            
+            <div class="input-group content-group">             
+                <div class="has-feedback has-feedback-left" id="divSearch">                 
+                    <com:TTextBox ID="txtSearch" CssClass="form-control input-xlg" />
+                    <div class="form-control-feedback">
+                        <i class="icon-search4 text-muted text-size-base"></i>
+                    </div>
+                </div>
+                <div class="input-group-btn">
+                    <com:TActiveButton ID="btnSearch" CssClass="btn btn-primary btn-xlg" ValidationGroup="frmSearch" Onclick="doSearch">                            
                         <prop:Text>
                             Cari
                         </prop:Text>
                         <prop:ClientSide.OnPreDispatch>                            
                             Pace.stop();
                             Pace.start();
-                            $('#<%=$this->btnSearch->ClientId%>').prop('disabled',true);						
+                            $('#<%=$this->btnSearch->ClientId%>').prop('disabled',true);                        
                         </prop:ClientSide.OnPreDispatch>
                         <prop:ClientSide.OnLoading>
-                            $('#<%=$this->btnSearch->ClientId%>').prop('disabled',true);									                                    
+                            $('#<%=$this->btnSearch->ClientId%>').prop('disabled',true);                                                                        
                         </prop:ClientSide.OnLoading>
                         <prop:ClientSide.onComplete>                                    
-                            $('#<%=$this->btnSearch->ClientId%>').prop('disabled',false);																								                                                                                                                
+                            $('#<%=$this->btnSearch->ClientId%>').prop('disabled',false);                                                                                                                                                                                                               
                         </prop:ClientSide.OnComplete>
                     </com:TActiveButton>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="table-responsive">
-		<com:TActiveRepeater ID="RepeaterS" DatakeyField="iduraian" AllowPaging="true" AllowCustomPaging="true" PageSize="10">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <com:TActiveRepeater ID="RepeaterS" DatakeyField="iduraian" AllowPaging="true" AllowCustomPaging="true" PageSize="10">
             <prop:HeaderTemplate> 
                 <table class="table table-striped table-hover" style="font-size:12px">          
                     <thead>
@@ -222,38 +213,38 @@
             </prop:EmptyTemplate>
         </com:TActiveRepeater>   
         <br/>
-		<div class="col-md-4">            
-		    <com:TActiveLabel ID="paginationInfo"/>        
-		</div>
-		<div class="col-md-8">        
-		    <com:TActivePager ID="pagerRepeaterS" OnCallBack="Page.renderCallback" ControlToPaginate="RepeaterS" Mode="Numeric" OnPageIndexChanged="Page.Page_Changed" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="10" FirstPageText="First" LastPageText="Last" CssClass="custompaging text-right" ButtonCssClass="page">	
-		        <prop:ClientSide.OnPreDispatch>
-		            $('#<%=$this->pagerRepeaterS->ClientId%>').prop('disabled',true);							            
-		            Pace.stop();
-		            Pace.start();                                                                                                             
-		        </prop:ClientSide.OnPreDispatch>                    
-		        <prop:ClientSide.OnLoading>
-		            $('#<%=$this->pagerRepeaterS->ClientId%>').prop('disabled',true);							            
-		        </prop:ClientSide.OnLoading>
-		        <prop:ClientSide.onComplete>                                            
-		            $('#<%=$this->pagerRepeaterS->ClientId%>').prop('disabled',false);									            
-		        </prop:ClientSide.OnComplete>
-		    </com:TActivePager> 
-		    <com:TActivePager ID="pagerRepeaterTransport" OnCallBack="Page.renderCallbackTransport" ControlToPaginate="RepeaterTransport" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedTransport" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="10" FirstPageText="First" LastPageText="Last" CssClass="custompaging text-right" ButtonCssClass="page">	
-		        <prop:ClientSide.OnPreDispatch>
-		            $('#<%=$this->pagerRepeaterS->ClientId%>').prop('disabled',true);							            
-		            Pace.stop();
-		            Pace.start();                                                                                                             
-		        </prop:ClientSide.OnPreDispatch>                    
-		        <prop:ClientSide.OnLoading>
-		            $('#<%=$this->pagerRepeaterTransport->ClientId%>').prop('disabled',true);							            
-		        </prop:ClientSide.OnLoading>
-		        <prop:ClientSide.onComplete>                                            
-		            $('#<%=$this->pagerRepeaterTransport->ClientId%>').prop('disabled',false);									            
-		        </prop:ClientSide.OnComplete>
-		    </com:TActivePager>              
-		</div>    
-		<br/><br/>
-	</div>
+        <div class="col-md-4">            
+            <com:TActiveLabel ID="paginationInfo"/>        
+        </div>
+        <div class="col-md-8">        
+            <com:TActivePager ID="pagerRepeaterS" OnCallBack="Page.renderCallback" ControlToPaginate="RepeaterS" Mode="Numeric" OnPageIndexChanged="Page.Page_Changed" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="10" FirstPageText="First" LastPageText="Last" CssClass="custompaging text-right" ButtonCssClass="page"> 
+                <prop:ClientSide.OnPreDispatch>
+                    $('#<%=$this->pagerRepeaterS->ClientId%>').prop('disabled',true);                                       
+                    Pace.stop();
+                    Pace.start();                                                                                                             
+                </prop:ClientSide.OnPreDispatch>                    
+                <prop:ClientSide.OnLoading>
+                    $('#<%=$this->pagerRepeaterS->ClientId%>').prop('disabled',true);                                       
+                </prop:ClientSide.OnLoading>
+                <prop:ClientSide.onComplete>                                            
+                    $('#<%=$this->pagerRepeaterS->ClientId%>').prop('disabled',false);                                              
+                </prop:ClientSide.OnComplete>
+            </com:TActivePager> 
+            <com:TActivePager ID="pagerRepeaterTransport" OnCallBack="Page.renderCallbackTransport" ControlToPaginate="RepeaterTransport" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedTransport" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="10" FirstPageText="First" LastPageText="Last" CssClass="custompaging text-right" ButtonCssClass="page">   
+                <prop:ClientSide.OnPreDispatch>
+                    $('#<%=$this->pagerRepeaterS->ClientId%>').prop('disabled',true);                                       
+                    Pace.stop();
+                    Pace.start();                                                                                                             
+                </prop:ClientSide.OnPreDispatch>                    
+                <prop:ClientSide.OnLoading>
+                    $('#<%=$this->pagerRepeaterTransport->ClientId%>').prop('disabled',true);                                       
+                </prop:ClientSide.OnLoading>
+                <prop:ClientSide.onComplete>                                            
+                    $('#<%=$this->pagerRepeaterTransport->ClientId%>').prop('disabled',false);                                              
+                </prop:ClientSide.OnComplete>
+            </com:TActivePager>              
+        </div>    
+        <br/><br/>
+    </div>
 </div>
 </com:TContent>
