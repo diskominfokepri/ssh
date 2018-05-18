@@ -274,13 +274,12 @@
                             <thead>
                             <tr class="bg-teal-700">
                                 <th width="15">NO</th>
-                                <th width="15">ID</th>
                                 <th width="15">REKENING</th>
                                 <th width="250">NAMA OBJEK</th>
                                 <th width="15">SAT.</th>
                                 <th>MEREK</th>
-                                <th>OPD</th>
-                                <th width="500">HARGA</th>                                
+                                <th>OPD</th>                                   
+                                <th width="500">HARGA</th>                             
                                 <th width="120">AKSI</th>
                             </tr>
                             </thead>
@@ -289,7 +288,6 @@
                     <prop:ItemTemplate>
                         <tr>
                             <td><%#$this->Data['no']%></td>
-                            <td><%#$this->Data['idusulan']%></td>
                             <td><%#$this->Data['rekening']%></td> 
                             <td><%#$this->Data['nama_rek5']%></td> 
                             <td><%#$this->Data['id_satuan']==0?'-':$this->Page->DMaster->getNamaSatuan($this->Data['id_satuan'])%></td> 
@@ -327,7 +325,7 @@
                                         <td><%#$this->Page->DMaster->formatUang($this->Data['anambas'])%></td></td>
                                     </tr>
                                 </table>
-                            </td>        
+                            </td> 
                             <td>
                                 <ul class="icons-list">
                                     <li class="<%#($this->Data['status']==1 || $this->Data['status']==2) ?'text-default':'text-primary-600'%>">

@@ -132,7 +132,7 @@ class CObjek extends MainPageM {
         $this->txtEditNamaObjek->Text=$result[1]['nama_rek5'];
 		$this->txtEditNamaMerek->Text=$result[1]['merek'];
         $this->cmbEditSatuan->DataSource=$this->DMaster->getListSatuan();
-        $this->cmbEditSatuan->Text=$r[1]['id_satuan'];
+        $this->cmbEditSatuan->Text=$result[1]['id_satuan'];
         $this->cmbEditSatuan->dataBind();
 	}	
 	

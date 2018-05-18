@@ -1,10 +1,10 @@
-<%@ Title="Data - Usulan" %>
+<%@ Title="Data - Usulan Harga" %>
 <com:TContent ID="moduleheader">
-    <i class="icon-task position-left"></i> <span class="text-semibold">USULAN</span>
+    <i class="icon-task position-left"></i> <span class="text-semibold">USULAN HARGA</span>
 </com:TContent>
 <com:TContent ID="modulebreadcrumb">    
     <li><a href="#">DATA</a></li>
-    <li class="active">USULAN</li>
+    <li class="active">USULAN HARGA</li>
 </com:TContent>
 <com:TContent ID="sidebarcontent">
 <div class="sidebar sidebar-main sidebar-default sidebar-separate">
@@ -42,16 +42,14 @@
                         <label class="control-label col-md-2">Merek</label>
                         <div class="col-md-10">
                             <p class="form-control-static">
-                                <com:TLabel ID="lblEditNamaMerek" />                                
+                                <com:TActiveTextBox ID="lblEditNamaMerek" CssClass="form-control"/>                                
                             </p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2">Satuan</label>
                         <div class="col-md-10">
-                             <p class="form-control-static">
-                                <com:TLabel ID="lblEditSatuan" />                                
-                            </p>
+                                <com:TDropDownList ID="cmbEditSatuan" CssClass="form-control" />  
                         </div>
                     </div>
                     <div class="form-group" id="divEditHargaBatam">
@@ -256,7 +254,7 @@
     <div class="col-md-12">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title"><i class="icon-task"></i> DAFTAR USULAN <com:TActiveLabel ID="lblmoduleheader" /></h5>
+                <h5 class="panel-title"><i class="icon-task"></i> DAFTAR USULAN HARGA <com:TActiveLabel ID="lblmoduleheader" /></h5>
                 <div class="heading-elements">
                     <div class="heading-btn">                    
                         <a href="<%=$this->constructUrl('data.TambahUsulan',true)%>" class="btn btn-info btn-xs" title="Tambah Usulan">

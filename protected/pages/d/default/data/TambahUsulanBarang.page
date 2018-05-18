@@ -1,11 +1,11 @@
-<%@ Title="Data - Usulan Harga" %>
+<%@ Title="Data - Usulan Nama Barang" %>
 <com:TContent ID="moduleheader">
-    <i class="icon-task position-left"></i> <span class="text-semibold">Tambah Usulan Harga</span>
+    <i class="icon-task position-left"></i> <span class="text-semibold">Tambah Usulan Nama Barang</span>
 </com:TContent>
 <com:TContent ID="modulebreadcrumb">    
     <li><a href="#">DATA</a></li>
     <li class="active">USULAN</li>
-    <li class="active">TAMBAH USULAN HARGA</li>
+    <li class="active">TAMBAH USULAN NAMA BARANG</li>
 </com:TContent>
 <com:TContent ID="maincontent">
 <com:TPanel Visible="<%= $this->getViewProcess(false)%>" CssClass="content">
@@ -15,18 +15,18 @@
             <div class="heading-elements">
                 <ul class="icons-list">                
                     <li>
-                        <a href="<%=$this->constructUrl('data.Usulan',true);%>" data-action="closeredirect"></a>
+                        <a href="<%=$this->constructUrl('data.UsulanBarang',true);%>" data-action="closeredirect"></a>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="panel-body">
-            <com:TLiteral ID="errorMessage" />
+           <com:TLiteral ID="errorMessage" />
             <div class="form-horizontal"> 
                 <div class="form-group">
                     <label class="control-label col-md-2">Rekening:</label>
                     <div class="col-md-10">
-                        <com:TActiveDropDownList ID="cmbAddTransaksi" OnCallBack="changeRekening" CssClass="form-control">
+                        <com:TActiveDropDownList ID="cmbAddTransaksi" OnCallBack="changeRekening"  CssClass="form-control">
                             <prop:ClientSide.OnLoading>     
                                 Pace.stop();
                                 Pace.start();
@@ -71,7 +71,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">Objek:</label>
                     <div class="col-md-10">
-                        <com:TActiveDropDownList ID="cmbAddObjek" OnCallBack="changeRekening" CssClass="form-control" Enabled="false">
+                        <com:TActiveDropDownList ID="cmbAddObjek" OnCallBack="lanjutInput" CssClass="form-control" Enabled="false">
                             <prop:ClientSide.OnLoading>     
                                 Pace.stop();
                                 Pace.start();
@@ -83,21 +83,6 @@
                         </com:TActiveDropDownList>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Rincian:</label>
-                    <div class="col-md-10">
-                        <com:TActiveDropDownList ID="cmbAddRincian" OnCallBack="lanjutInput" CssClass="form-control" Enabled="false">
-                            <prop:ClientSide.OnLoading>     
-                                Pace.stop();
-                                Pace.start();
-                                $('#<%=$this->cmbAddRincian->ClientId%>').prop('disabled',true); 
-                            </prop:ClientSide.OnLoading>
-                            <prop:ClientSide.OnComplete>     
-                                $('#<%=$this->cmbAddRincian->ClientId%>').prop('disabled',false);
-                            </prop:ClientSide.OnComplete>
-                        </com:TActiveDropDownList>                        
-                    </div>
-                </div>        
             </div>
         </div>
     </div>
@@ -105,11 +90,11 @@
 <com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="content">	
     <div class="panel panel-flat">
         <div class="panel-heading">            
-            <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> Tambah Usulan Harga</h5>
+            <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> Tambah Usulan Nama Barang</h5>
             <div class="heading-elements">
                 <ul class="icons-list">                
                     <li>
-                        <a href="<%=$this->Page->constructUrl('data.TambahUsulan',true);%>" data-action="closeredirect"></a>
+                        <a href="<%=$this->Page->constructUrl('data.TambahUsulanBarang',true);%>" data-action="closeredirect"></a>
                     </li>
                 </ul>
             </div>
@@ -121,25 +106,58 @@
                         <label class="control-label col-md-2">Kode / Nama Objek :</label>
                         <div class="col-md-10">
                             <p class="form-control-static">
-                                <com:TLabel ID="lblAddKodeNamaUsulan" />
+                                <com:TLabel ID="lblAddKodeNamaUsulanBarang" />
                                 <com:THiddenField ID="hiddennorekening" />
                             </p>                            
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Merek</label>
+                    <div class="form-group" id="divAddKodeRincian">
+                        <label class="control-label col-md-2">Kode Rincian :</label>
                         <div class="col-md-10">
-                            <p class="form-control-static">
-                                <com:TLabel ID="lblAddNamaMerek" />                                
-                            </p>
+                            <div class="input-group">
+                                <com:TActiveLabel ID="lblAddKodeJenis" ForeColor="red" CssClass="input-group-addon" />
+                                <com:TActiveTextBox ID="txtAddKodeRincian" MaxLength="1" CssClass="form-control" /> 
+                            </div>
+                            <com:TRequiredFieldValidator ID="FieldAddKodeRincianValidator" ControlToValidate="txtAddKodeRincian" Display="Dynamic" ErrorMessage="Isi Kode Rincian" ValidationGroup="addrincian" FocusOnError="true" CssClass="has-error help-block">    
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divAddKodeRincian').addClass('has-error');
+                                    $('#<%=$this->FieldAddKodeRincianValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('#divAddKodeRincian').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                            <com:TActiveCustomValidator ID="checkAddKodeRincian" ControlToValidate="txtAddKodeRincian" Display="Dynamic" OnServerValidate="checkKodeRincian" ValidationGroup="addrincian" ErrorMessage="Kode Transaksi Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divAddKodeRincian').addClass('has-error');
+                                    $('#<%=$this->checkAddKodeRincian->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('#divAddKodeRincian').removeClass('has-error');
+                                    Prado.Validation.reset("addkelompok");
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TActiveCustomValidator>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Satuan</label>
+                   </div>
+                    <div class="form-group" id="divAddNamaRincian">
+                        <label class="control-label col-md-2">Nama Rincian :</label>            
+                        <div class="col-md-10">             
+                            <com:TActiveTextBox ID="txtAddNamaRincian" Columns="30" CssClass="form-control" />      
+                            <com:TRequiredFieldValidator ID="FieldAddNamaRincianValidator" ControlToValidate="txtAddNamaRincian" Display="Dynamic" ErrorMessage="Isi Nama Rincian" ValidationGroup="addrincian" FocusOnError="true" CssClass="has-error help-block">
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divAddNamaRincian').addClass('has-error');
+                                    $('#<%=$this->FieldAddNamaRincianValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('#divAddNamaRincian').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                      
+                        </div>      
+                    </div>   
+                    <div class="form-group" id="divAddSatuan">
+                        <label class="control-label col-md-2">Satuan:</label>
                         <div class="col-md-10">
-                             <p class="form-control-static">
-                                <com:TLabel ID="lblAddSatuan" />                                
-                            </p>
+                            <com:TDropDownList ID="cmbAddSatuan" CssClass="form-control" />                        
                         </div>
                     </div>
                     <div class="form-group" id="divAddHargaBatam">
@@ -156,12 +174,12 @@
                                 </prop:ClientSide.OnValidationSuccess>
                             </com:TRequiredFieldValidator>  
                         </div>
-                    </div>                    				                    
+                    </div>                                                      
                     <div class="form-group" id="divAddHargaBintan">
                         <label class="control-label col-md-2">Harga Bintan</label>
                         <div class="col-md-10">
                             <com:TTextBox ID="txtAddHargaBintan" CssClass="form-control" />  
-                            <com:TRequiredFieldValidator ID="FieldAddHargaBintanValidator" ControlToValidate="txtAddHargaBintan" Display="Dynamic" ErrorMessage="Isi Harga Bintan" ValidationGroup="addUsulan" CssClass="has-error help-block">	
+                            <com:TRequiredFieldValidator ID="FieldAddHargaBintanValidator" ControlToValidate="txtAddHargaBintan" Display="Dynamic" ErrorMessage="Isi Harga Bintan" ValidationGroup="addUsulan" CssClass="has-error help-block"> 
                                 <prop:ClientSide.OnValidationError>
                                     $('#divAddHargaBintan').addClass('has-error');
                                     $('#<%=$this->FieldAddHargaBintanValidator->ClientID%>').removeAttr('style');
@@ -169,7 +187,7 @@
                                 <prop:ClientSide.OnValidationSuccess>                                
                                     $('#divAddHargaBintan').removeClass('has-error');
                                 </prop:ClientSide.OnValidationSuccess>
-                            </com:TRequiredFieldValidator> 	
+                            </com:TRequiredFieldValidator>  
                         </div>
                     </div> 
                     <div class="form-group" id="divAddHargaTanjungpinang">
@@ -246,12 +264,12 @@
                                 </prop:ClientSide.OnValidationSuccess>
                             </com:TRequiredFieldValidator>  
                         </div>
-                    </div>   
+                    </div>                    
                 </fieldset>
                 <fieldset class="content-group">
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <com:TActiveButton ID="btnSave" CssClass="btn btn-info btn-labeled btn-xs" ValidationGroup="addUsulan" OnClick="saveData" Attributes.Title="Simpan">
+                            <com:TActiveButton ID="btnSave" CssClass="btn btn-info btn-labeled btn-xs" ValidationGroup="addUsulanBarang" OnClick="saveData" Attributes.Title="Simpan">
                                 <prop:Text>                                        
                                     Simpan                                        
                                 </prop:Text>
@@ -276,13 +294,14 @@
 </com:TPanel>	
 <com:TClientScript ScriptUrl="<%=$this->Page->Theme->baseUrl%>/assets/js/plugins/numeric/autoNumeric-min.js">
     $(document).ready(function(){
+       $('#<%=$this->txtAddKodeRincian->ClientID%>').autoNumeric('init',{aSep:'',mDec:'0',vMin:'0000',vMax:'9999',lZero:'keep'});
        $('#<%=$this->txtAddHargaBatam->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
        $('#<%=$this->txtAddHargaBintan->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
        $('#<%=$this->txtAddHargaTanjungpinang->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
        $('#<%=$this->txtAddHargaKarimun->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
        $('#<%=$this->txtAddHargaLingga->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
        $('#<%=$this->txtAddHargaNatuna->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
-       $('#<%=$this->txtAddHargaAnambas->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+       $('#<%=$this->txtAddHargaAnambas->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});  
     });
 </com:TClientScript>
 <%include Application.layouts.default.ModalMessageError%>

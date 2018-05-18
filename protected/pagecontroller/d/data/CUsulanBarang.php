@@ -4,7 +4,7 @@ class CUsulanBarang extends MainPageD {
     public function onLoad ($param) {
         parent::onLoad ($param);        
         $this->createObj('DMaster'); 
-        $this->showUsulanBarang=true;        
+        $this->showDataUsulanBarang=true;        
         if (!$this->IsPostBack&&!$this->IsCallBack) {
             if (!isset($_SESSION['currentPageUsulanBarang'])||$_SESSION['currentPageUsulanBarang']['page_name']!='d.dmaster.UsulanBarang') {
                 $_SESSION['currentPageUsulanBarang']=array('page_name'=>'d.dmaster.UsulanBarang','page_num'=>0,'search'=>false,'no_rek4'=>'none');                                                
@@ -40,24 +40,27 @@ class CUsulanBarang extends MainPageD {
     protected function populateData ($search=false) {
         $no_rek4=$_SESSION['currentPageUsulanBarang']['no_rek4'];
         $str_rek=$no_rek4=='none'?'':" AND no_rek4='$no_rek4'";
-        if ($search) {
-            $str = "SELECT rek5.no_rek5,rek5.nama_rek5,rek5.merek,s.nama_satuan FROM usulan_barang, v_rekening rek5 LEFT JOIN satuan s ON (s.id_satuan=rek5.id_satuan) WHERE rek5.id_tipe=1";
+        $tahun=$_SESSION['ta'];
+        $idunit = $this->Pengguna->getDataUser('idunit');
+        if ($search) {            
+            $str = "SELECT ub.idusulan,ub.rekening,ub.nama_rek5,ub.merek,ub.id_satuan, ub.status, un.nama_unit,s.nama_satuan,ub.batam,ub.bintan,ub.tanjungpinang,ub.karimun,ub.lingga,ub.natuna,ub.anambas FROM usulan_barang ub left join satuan s on s.id_satuan=ub.id_satuan, unit un WHERE ub.ta='$tahun' AND ub.idunit=un.idunit and ub.idunit='$idunit'";
             $txtsearch=addslashes($this->txtKriteria->Text);
             switch ($this->cmbKriteria->Text) {                
                 case 'kode' :
-                    $clausa=" AND no_rek5 LIKE '%$txtsearch%'";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("v_rekening WHERE id_tipe=1$clausa",'no_rek5');
+                    $clausa=" AND rekening LIKE '%$txtsearch%'";
+                    $jumlah_baris=$this->DB->getCountRowsOfTable ("v_rekening WHERE id_tipe=1$clausa",'rekening');
                     $str = "$str $clausa";
                 break;
                 case 'nama' :
                     $clausa=" AND nama_rek5 LIKE '%$txtsearch%'";
-                    $jumlah_baris=$this->DB->getCountRowsOfTable ("v_rekening WHERE id_tipe=1$clausa",'no_rek5');
+                    $jumlah_baris=$this->DB->getCountRowsOfTable ("v_rekening WHERE id_tipe=1$clausa",'rekening');
                     $str = "$str $clausa";
                 break;
             }
         }else{
-           $str = "SELECT rek5.no_rek5,rek5.nama_rek5,rek5.merek,s.nama_satuan FROM usulan_barang, v_rekening rek5 LEFT JOIN satuan s ON (s.id_satuan=rek5.id_satuan) WHERE rek5.id_tipe=1$str_rek";
-            $jumlah_baris=$this->DB->getCountRowsOfTable ("v_rekening WHERE id_tipe=1$str_rek",'no_rek5');
+           
+            $str = "SELECT ub.idusulan,ub.rekening,ub.nama_rek5,ub.merek,ub.id_satuan, ub.status, un.nama_unit,s.nama_satuan,ub.batam,ub.bintan,ub.tanjungpinang,ub.karimun,ub.lingga,ub.natuna,ub.anambas FROM usulan_barang ub left join satuan s on s.id_satuan=ub.id_satuan, unit un WHERE ub.ta='$tahun' AND ub.idunit=un.idunit and ub.idunit='$idunit'";
+            $jumlah_baris=$this->DB->getCountRowsOfTable ("usulan_barang ub left join satuan s on s.id_satuan=ub.id_satuan, unit un WHERE ub.ta='$tahun' AND ub.idunit=un.idunit and ub.idunit='$idunit'",'idusulan');
         }
         $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPageUsulanBarang']['page_num'];               
         $this->RepeaterS->VirtualItemCount=$jumlah_baris;
@@ -69,7 +72,7 @@ class CUsulanBarang extends MainPageD {
             $limit=$itemcount-$offset;
         }
         if ($limit < 0) {$offset=0;$limit=10;$_SESSION['currentPageUsulanBarang']['page_num']=0;}
-        $str = "$str ORDER BY no_rek5 ASC LIMIT $offset,$limit";
+        $str = "$str ORDER BY rekening ASC LIMIT $offset,$limit";
         $r=$this->DB->getRecord($str,$offset+1);        
         $this->RepeaterS->DataSource=$r;
         $this->RepeaterS->dataBind();
@@ -124,42 +127,86 @@ class CUsulanBarang extends MainPageD {
     public function editRecord ($sender,$param) {       
         $this->idProcess='edit';
         $id=$this->getDataKeyField($sender,$this->RepeaterS);        
-        $result = $this->DMaster->getList("rek5 WHERE no_rek5='$id'",array('no_rek5','no_rek4','nama_rek5','merek','id_satuan'));       
+        // $result = $this->DMaster->getList("rek5 WHERE no_rek5='$id'",array('no_rek5','no_rek4','nama_rek5','merek','id_satuan'));       
         $this->hiddennorek5->Value=$id;
-        $this->lblEditKodeRincian->Text=$result[1]['no_rek4'].'.';
-        $this->txtEditKodeObjek->Text=$this->DMaster->getKodeRekeningTerakhir($result[1]['no_rek5']);
-        $this->txtEditNamaObjek->Text=$result[1]['nama_rek5'];
-        $this->txtEditNamaMerek->Text=$result[1]['merek'];
+
+        $str = "SELECT rekening,nama_rek5,merek,id_satuan,batam,bintan,tanjungpinang,karimun,lingga,natuna,anambas FROM usulan_barang ub WHERE idusulan=$id";
+        $r=$this->DB->getRecordOneOnly($str);
+
+        $this->txtEditKodeRincian->Text=$r['rekening'];
+        $this->txtEditNamaRincian->Text=$r['nama_rek5'];
+        $this->txtEditNamaMerek->Text=$r['merek'];
         $this->cmbEditSatuan->DataSource=$this->DMaster->getListSatuan();
-        $this->cmbEditSatuan->Text=$r[1]['id_satuan'];
+        $this->cmbEditSatuan->Text=$r['id_satuan'];
         $this->cmbEditSatuan->dataBind();
+        $this->txtEditHargaBatam->Text=$r['batam'];
+        $this->txtEditHargaBintan->Text=$r['bintan'];
+        $this->txtEditHargaTanjungpinang->Text=$r['tanjungpinang'];
+        $this->txtEditHargaKarimun->Text=$r['karimun'];
+        $this->txtEditHargaLingga->Text=$r['lingga'];
+        $this->txtEditHargaNatuna->Text=$r['natuna'];
+        $this->txtEditHargaAnambas->Text=$r['anambas'];
+
+        // $this->lblEditKodeRincian->Text=$r['no_rek4'].'.';
+        // $this->txtEditKodeObjek->Text=$this->DMaster->getKodeRekeningTerakhir($r['no_rek5']);
+        // $this->txtEditNamaObjek->Text=$r['nama_rek5'];
+        // $this->txtEditNamaMerek->Text=$r['merek'];
+        // $this->cmbEditSatuan->DataSource=$this->DMaster->getListSatuan();
+        // $this->cmbEditSatuan->Text=$r['id_satuan'];
+        // $this->cmbEditSatuan->dataBind();
     }   
     
     public function updateData($sender,$param) {
         if ($this->Page->IsValid) {
             $id=$this->hiddennorek5->Value;
-            $no_rek4=$this->lblEditKodeRincian->Text;
-            $no_rek5=$no_rek4.$this->txtEditKodeObjek->Text;
-            $nama_objek=strtoupper(addslashes($this->txtEditNamaObjek->Text));
+            $kodeRincian=str_replace(',','',$this->txtEditKodeRincian->Text);
+            $namaRincian=strtoupper(addslashes($this->txtEditNamaRincian->Text));
             $merek=addslashes($this->txtEditNamaMerek->Text);
             $id_satuan=addslashes($this->cmbEditSatuan->Text);
-            $str = "UPDATE rek5 SET no_rek5='$no_rek5',nama_rek5='$nama_objek',merek='$merek',id_satuan='$id_satuan' WHERE no_rek5='$id'";
-            $this->DB->updateRecord($str);
-            $this->Pengguna->insertNewActivity($this->Page->getPagePath(),"Mengubah data master Rekening Objek dengan id ($id) berhasil dilakukan.");
-            $this->redirect('dmaster.Objek',true);              
+            $batam=str_replace(',','',$this->txtEditHargaBatam->Text);
+            $bintan=str_replace(',','',$this->txtEditHargaBintan->Text);
+            $tanjungpinang=str_replace(',','',$this->txtEditHargaTanjungpinang->Text);
+            $karimun=str_replace(',','',$this->txtEditHargaKarimun->Text);
+            $lingga=str_replace(',','',$this->txtEditHargaLingga->Text);
+            $natuna=str_replace(',','',$this->txtEditHargaNatuna->Text);
+            $anambas=str_replace(',','',$this->txtEditHargaAnambas->Text);
+
+            $str = "UPDATE usulan_barang SET rekening='$kodeRincian',nama_rek5='$namaRincian', merek='$merek', id_satuan='$id_satuan', batam='$batam',bintan='$bintan',tanjungpinang='$tanjungpinang',karimun='$karimun',lingga='$lingga',natuna='$natuna',anambas='$anambas',date_modified=NOW() WHERE idusulan='$id'";
+            $this->DB->insertRecord($str);
+            
+            $this->Pengguna->insertNewActivity($this->Page->getPagePath(),"Mengubah usulan Barang dengan id  ($id) telah berhasil dilakukan");
+            
+            $this->redirect('data.UsulanBarang', true);         
+
+
+            // $no_rek4=$this->lblEditKodeRincian->Text;
+            // $no_rek5=$no_rek4.$this->txtEditKodeObjek->Text;
+            // $nama_objek=strtoupper(addslashes($this->txtEditNamaObjek->Text));
+            // $merek=addslashes($this->txtEditNamaMerek->Text);
+            // $id_satuan=addslashes($this->cmbEditSatuan->Text);
+            // $str = "UPDATE rek5 SET no_rek5='$no_rek5',nama_rek5='$nama_objek',merek='$merek',id_satuan='$id_satuan' WHERE no_rek5='$id'";
+            // $this->DB->updateRecord($str);
+            // $this->Pengguna->insertNewActivity($this->Page->getPagePath(),"Mengubah data master Rekening Objek dengan id ($id) berhasil dilakukan.");
+            // $this->redirect('dmaster.Objek',true);              
         }
     }
     public function deleteRecord ($sender,$param) {
+        // $id=$this->getDataKeyField($sender,$this->RepeaterS);
+        // if ($this->DB->checkRecordIsExist('rekening','usulan_barang',$id)) {
+        //     $this->Pengguna->insertNewActivity($this->Page->getPagePath(),"Tidak bisa menghapus data Rekening Barang Baru ($id) karena sedang digunakan di Uraian.");
+        //     $this->labelErrorMessage->Text="Tidak bisa menghapus data master Rekening Barang Baru dengan ID ($id) karena sedang digunakan di Uraian Murni";
+        //     $this->DialogErrorMessage->Open();
+        // }else{
+        //     $this->DB->deleteRecord("rek5 WHERE no_rek5='$id'");    
+        //     $this->Pengguna->insertNewActivity($this->Page->getPagePath(),"Menghapus data master Rekening Objek dengan id ($id) berhasil dilakukan.");
+        //     $this->redirect('data.UsulanBarang',true);
+        // }
+
         $id=$this->getDataKeyField($sender,$this->RepeaterS);
-        if ($this->DB->checkRecordIsExist('rekening','uraian',$id)) {
-            $this->Pengguna->insertNewActivity($this->Page->getPagePath(),"Tidak bisa menghapus data master Rekening ($id) karena sedang digunakan di Uraian.");
-            $this->labelErrorMessage->Text="Tidak bisa menghapus data master Rekening Objek dengan ID ($id) karena sedang digunakan di Uraian Murni";
-            $this->DialogErrorMessage->Open();
-        }else{
-            $this->DB->deleteRecord("rek5 WHERE no_rek5='$id'");    
-            $this->Pengguna->insertNewActivity($this->Page->getPagePath(),"Menghapus data master Rekening Objek dengan id ($id) berhasil dilakukan.");
-            $this->redirect('dmaster.Objek',true);
-        }
+        
+        $this->DB->deleteRecord("usulan_barang WHERE idusulan='$id'");    
+        $this->Pengguna->insertNewActivity($this->Page->getPagePath(),"Menghapus data usulan barang dengan id ($id) berhasil dilakukan.");
+        $this->redirect('data.UsulanBarang',true);  
         
     }
 }

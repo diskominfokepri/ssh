@@ -1,7 +1,7 @@
 <%@ Title="USULAN BARANG" %>
 
 <com:TContent ID="moduleheader">
-    <i class="icon-calculator2 position-left"></i> <span class="text-semibold">Usulan Barang/Peralatan</span>
+    <i class="icon-calculator2 position-left"></i> <span class="text-semibold">Usulan Nama Barang/Peralatan</span>
 </com:TContent>
 <com:TContent ID="modulebreadcrumb">    
     <li><a href="#">DATA</a></li>
@@ -15,6 +15,194 @@
 </div>
 </com:TContent>
 <com:TContent ID="maincontent"> 
+<com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="content">
+    <com:THiddenField ID="hiddennorek5" />
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> UBAH USULAN BARANG</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">                    
+                    <li>
+                        <a href="<%=$this->Page->constructUrl('data.UsulanBarang',true);%>" data-action="closeredirect"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">                
+                <fieldset class="content-group">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Kode / Rekening Baru :</label>
+                        <div class="col-md-10">
+                            <p class="form-control-static">
+                                <com:TLabel ID="txtEditKodeRincian" />
+                            </p>                            
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Nama Barang Baru</label>
+                        <div class="col-md-10">
+                            <com:TActiveTextBox ID="txtEditNamaRincian" CssClass="form-control" /> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Merek</label>
+                        <div class="col-md-10">
+                            <p class="form-control-static">
+                                <com:TActiveTextBox ID="txtEditNamaMerek" CssClass="form-control" />                                
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Satuan</label>
+                        <div class="col-md-10">
+                             <com:TDropDownList ID="cmbEditSatuan" CssClass="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group" id="divEditHargaBatam">
+                        <label class="control-label col-md-2">Harga Batam</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaBatam" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaBatamValidator" ControlToValidate="txtEditHargaBatam" Display="Dynamic" ErrorMessage="Isi Harga Batam" ValidationGroup="editusulan" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaBatam').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaBatamValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaBatam').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>                                                      
+                    <div class="form-group" id="divEditHargaBintan">
+                        <label class="control-label col-md-2">Harga Bintan</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaBintan" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaBintanValidator" ControlToValidate="txtEditHargaBintan" Display="Dynamic" ErrorMessage="Isi Harga Bintan" ValidationGroup="editusulan" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaBintan').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaBintanValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaBintan').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div> 
+                    <div class="form-group" id="divEditHargaTanjungpinang">
+                        <label class="control-label col-md-2">Harga Tanjungpinang</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaTanjungpinang" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaTanjungpinangValidator" ControlToValidate="txtEditHargaTanjungpinang" Display="Dynamic" ErrorMessage="Isi Harga Tanjungpinang" ValidationGroup="editusulan" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaTanjungpinang').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaTanjungpinangValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaTanjungpinang').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>
+                    <div class="form-group" id="divEditHargaKarimun">
+                        <label class="control-label col-md-2">Harga Karimun</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaKarimun" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaKarimunValidator" ControlToValidate="txtEditHargaKarimun" Display="Dynamic" ErrorMessage="Isi Harga Karimun" ValidationGroup="editusulan" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaKarimun').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaKarimunValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaKarimun').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div> 
+                    <div class="form-group" id="divEditHargaLingga">
+                        <label class="control-label col-md-2">Harga Lingga</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaLingga" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaLinggaValidator" ControlToValidate="txtEditHargaLingga" Display="Dynamic" ErrorMessage="Isi Harga Lingga" ValidationGroup="editusulan" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaLingga').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaLinggaValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaLingga').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>   
+                    <div class="form-group" id="divEditHargaNatuna">
+                        <label class="control-label col-md-2">Harga Natuna</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaNatuna" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaNatunaValidator" ControlToValidate="txtEditHargaNatuna" Display="Dynamic" ErrorMessage="Isi Harga Natuna" ValidationGroup="editusulan" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaNatuna').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaNatunaValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaNatuna').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>  
+                    <div class="form-group" id="divEditHargaAnambas">
+                        <label class="control-label col-md-2">Harga Anambas</label>
+                        <div class="col-md-10">
+                            <com:TTextBox ID="txtEditHargaAnambas" CssClass="form-control" />  
+                            <com:TRequiredFieldValidator ID="FieldEditHargaAnambasValidator" ControlToValidate="txtEditHargaAnambas" Display="Dynamic" ErrorMessage="Isi Harga Anambas" ValidationGroup="editusulan" CssClass="has-error help-block"> 
+                                <prop:ClientSide.OnValidationError>
+                                    $('#divEditHargaAnambas').addClass('has-error');
+                                    $('#<%=$this->FieldEditHargaAnambasValidator->ClientID%>').removeAttr('style');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>                                
+                                    $('#divEditHargaAnambas').removeClass('has-error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>  
+                        </div>
+                    </div>   
+                </fieldset>
+                <fieldset class="content-group">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <com:TActiveButton ID="btnSave" CssClass="btn btn-info btn-labeled btn-xs" ValidationGroup="editusulan" OnClick="updateData" Attributes.Title="Simpan">
+                                <prop:Text>                                        
+                                    Simpan                                        
+                                </prop:Text>
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('#<%=$this->btnSave->ClientId%>').prop('disabled',true);  
+                                    Pace.stop();
+                                    Pace.start();                                           
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('#<%=$this->btnSave->ClientId%>').prop('disabled',true);                                      
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.onComplete>
+                                    $('#<%=$this->btnSave->ClientId%>').prop('disabled',false);
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveButton>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>        
+        </div>
+    </div>
+    <com:TClientScript ScriptUrl="<%=$this->Page->Theme->baseUrl%>/assets/js/plugins/numeric/autoNumeric-min.js">
+        $(document).ready(function(){
+           $('#<%=$this->txtEditHargaBatam->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaBintan->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaTanjungpinang->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaKarimun->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaLingga->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaNatuna->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+           $('#<%=$this->txtEditHargaAnambas->ClientID%>').autoNumeric('init',{aDec:'.',mDec:'0',unSetOnSubmit: true});       
+        });
+    </com:TClientScript>
+</com:TPanel>
 <com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row">
     <div class="col-md-12">
         <div class="panel panel-flat border-top-lg border-top-info border-bottom-info panel-collapsed">
@@ -105,19 +293,28 @@
     <div class="col-md-12">
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title"><i class="icon-calculator2 position-left"></i>  DAFTAR OBJEK BARANG/PERALATAN/</h5>  
+                <h5 class="panel-title"><i class="icon-calculator2 position-left"></i>  DAFTAR USULAN NAMA BARANG/PERALATAN</h5> 
+                <div class="heading-elements">
+                    <div class="heading-btn">                    
+                        <a href="<%=$this->constructUrl('data.TambahUsulanBarang',true)%>" class="btn btn-info btn-xs" title="Tambah Usulan Nama Barang/Peralatan">
+                            <i class="icon-googleplus5"></i>
+                        </a>                         
+                    </div>         
+                </div> 
             </div>
             <div class="table-responsive">
-                <com:TActiveRepeater ID="RepeaterS" DataKeyField="no_rek5" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                <com:TActiveRepeater ID="RepeaterS" DataKeyField="idusulan" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
                     <prop:HeaderTemplate>           
                         <table class="table table-striped table-hover"> 
                             <thead>
                             <tr class="bg-teal-700">
                                 <th width="15">NO</th>
-                                <th width="200">KODE OBJEK</th>
+                                <th width="200">REKENING USULAN</th>
                                 <th>NAMA OBJEK</th>   
                                 <th>MEREK</th>                      
-                                <th>SATUAN</th>                             
+                                <th>SATUAN</th>  
+                                <th width="500">HARGA</th> 
+                                <th width="120">AKSI</th>                           
                             </tr>                               
                             </thead>
                             <tbody>
@@ -125,10 +322,65 @@
                     <prop:ItemTemplate>
                         <tr>                
                             <td><%#$this->Data['no']%></td>
-                            <td><%#$this->Data['no_rek5']%></td>    
+                            <td><%#$this->Data['rekening']%></td>    
                             <td><%#$this->Data['nama_rek5']%></td>  
                             <td><%#$this->Data['merek'] == ''?'N.A':$this->Data['merek']%></td> 
                             <td><%#$this->Data['nama_satuan'] == ''?'N.A':$this->Data['nama_satuan']%></td>
+                            <td> 
+                                <table width="100%">
+                                    <tr>
+                                        <td width="110"><strong>BATAM :</strong></td>
+                                        <td width="120">
+                                            <%#$this->Page->DMaster->formatUang($this->Data['batam'])%>
+                                        </td>
+                                        <td width="110"><strong>BINTAN :</strong></td>
+                                        <td width="120">
+                                            <%#$this->Page->DMaster->formatUang($this->Data['bintan'])%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>TG. PINANG :</strong></td>
+                                        <td>
+                                            <%#$this->Page->DMaster->formatUang($this->Data['tanjungpinang'])%>
+                                        </td>
+                                        <td><strong>KARIMUN :</strong></td>
+                                        <td><%#$this->Page->DMaster->formatUang($this->Data['karimun'])%></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>LINGGA :</strong></td>
+                                        <td><%#$this->Page->DMaster->formatUang($this->Data['lingga'])%></td>
+                                        <td><strong>NATUNA   :</strong></td>
+                                        <td><%#$this->Page->DMaster->formatUang($this->Data['natuna'])%></td></td>
+                                    </tr>                                    
+                                    <tr>
+                                        <td><strong>ANAMBAS :</strong></td>
+                                        <td><%#$this->Page->DMaster->formatUang($this->Data['anambas'])%></td></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <ul class="icons-list">
+                                    <li class="text-primary-600">
+                                        <com:TLinkButton Text="<i class='icon-pencil7'></i>" OnClick="Page.editRecord" Attributes.Title="Ubah Data USULAN BARANG" />
+                                    </li>
+                                    <li class="text-danger-600">                                    
+                                        <com:TActiveLinkButton ID="btnDelete" Text="<i class='icon-trash'></i>" OnClick="Page.deleteRecord" ClientSide.PostState="false" Attributes.OnClick="if(!confirm('Apakah Anda ingin menghapus data USULAN BARANG ini ?')) return false;" Attributes.Title="Hapus Data USULAN BARANG">
+                                            <prop:ClientSide.OnPreDispatch>         
+                                                Pace.stop();
+                                                Pace.start();                                                 
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',true);
+                                            </prop:ClientSide.OnPreDispatch>
+                                            <prop:ClientSide.OnLoading>
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',true);                   
+                                            </prop:ClientSide.OnLoading>
+                                            <prop:ClientSide.OnComplete>                                                                    
+                                                $('#<%=$this->btnDelete->ClientId%>').prop('disabled',false);                                                                                                                
+                                            </prop:ClientSide.OnComplete>
+                                        </com:TActiveLinkButton>
+                                    </li>                                
+                                </ul>
+                            </td>                 
                         </tr>
                     </prop:ItemTemplate>                
                     <prop:FooterTemplate>               

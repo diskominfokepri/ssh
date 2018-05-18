@@ -47,39 +47,23 @@ class CUsulan extends MainPageD {
         $idunit = $this->Pengguna->getDataUser('idunit');
         $tahun=$_SESSION['ta'];
         if ($search) {
-            $str = "SELECT us.idusulan,us.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,us.batam,us.bintan,us.tanjungpinang,us.karimun,us.lingga,us.natuna,us.anambas FROM usulan us,rek5 WHERE rek5.no_rek5=us.rekening AND us.ta=$tahun AND idunit='$idunit' ";    
-            $str_jumlah="usulan us,proyek_m pm WHERE pm.idproyek=us.idproyek AND pm.tahun_anggaran=$tahun";
+            $str = "SELECT us.idusulan,us.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,us.batam,us.bintan,us.tanjungpinang,us.karimun,us.lingga,us.natuna,us.anambas FROM usulan us,rek5 WHERE rek5.no_rek5=us.rekening AND us.ta=$tahun AND idunit='$idunit'";    
+            $str_jumlah="usulan us,rek5 WHERE rek5.no_rek5=us.rekening AND idunit='$idunit' AND status=0";
             $txtsearch=addslashes($this->txtKriteria->Text);
             switch ($this->cmbKriteria->Text) {
-                case 'id' :
-                    $str_jumlah = "$str_jumlah AND pm.idproyek='$txtsearch%'";
-                    $str = "$str AND pm.idproyek='$txtsearch%'";
-                break;
-                case 'kode' :
-                    $str_jumlah = "$str_jumlah AND pm.kode_proyek LIKE '$txtsearch%'";
-                    $str = "$str AND pm.kode_proyek LIKE '$txtsearch%'";
-                break;
-                case 'nama' :
-                    $str_jumlah = "$str_jumlah AND pm.nama_proyek LIKE '%$txtsearch%'";
-                    $str = "$str AND pm.nama_proyek LIKE '%$txtsearch%'";
-                break;
-                case 'idusulan' :
-                    $str_jumlah = "$str_jumlah AND us.idusulan='$txtsearch'";
-                    $str = "$str AND us.idusulan='$txtsearch'";
-                break;
                 case 'rekening' :
                     $str_jumlah = "$str_jumlah AND us.rekening LIKE '%$txtsearch%'";
-                    $str = "$str AND us.rekening LIKE '%$txtsearch%'";
+                    $str = "$str AND us.rekening LIKE '$txtsearch%'";
                 break;
                 case 'nama_usulan' :
-                    $str_jumlah = "$str_jumlah AND us.nama_usulan LIKE '%$txtsearch%'";
-                    $str = "$str AND us.nama_usulan LIKE '%$txtsearch%'";
-                break;            
+                    $str = "$str  AND rek5.nama_rek5 LIKE '$txtsearch%'";
+                    $str_jumlah = "$str_jumlah AND rek5.nama_rek5 LIKE '%$txtsearch%'";
+                break;               
             }
             $jumlah_baris=$this->DB->getCountRowsOfTable ($str_jumlah,'us.idusulan');   
         }else{
             $str = "SELECT us.idusulan,us.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,us.batam,us.bintan,us.tanjungpinang,us.karimun,us.lingga,us.natuna,us.anambas FROM usulan us,rek5 WHERE rek5.no_rek5=us.rekening AND us.ta=$tahun AND idunit='$idunit' AND status=0";    
-            $jumlah_baris=$this->DB->getCountRowsOfTable ("usulan us WHERE us.ta=$tahun",'us.idusulan');    
+            $jumlah_baris=$this->DB->getCountRowsOfTable ("usulan us WHERE us.ta=$tahun AND idunit='$idunit' AND status=0",'us.idusulan');    
         }
         $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPageUsulan']['page_num'];
         $this->RepeaterS->VirtualItemCount=$jumlah_baris;
@@ -108,9 +92,12 @@ class CUsulan extends MainPageD {
         $r=$this->DB->getRecordOneOnly($str);
         
         $this->lblEditKodeNamausulan->Text=$r['rekening'].' / '.$r['nama_rek5'];
-        $this->lblEditNamaMerek->Text=$r['merek'];                          
-        $this->lblEditSatuan->Text=$this->DMaster->getNamaSatuan($r['id_satuan']);                       
+        $this->lblEditNamaMerek->Text=$r['merek'];    
 
+        $this->cmbEditSatuan->DataSource=$this->DMaster->getListSatuan();
+        $this->cmbEditSatuan->Text=$r['id_satuan'];
+        $this->cmbEditSatuan->dataBind();
+        
         $this->txtEditHargaBatam->Text=$r['batam'];
         $this->txtEditHargaBintan->Text=$r['bintan'];
         $this->txtEditHargaTanjungpinang->Text=$r['tanjungpinang'];
