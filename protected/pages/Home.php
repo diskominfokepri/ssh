@@ -18,7 +18,7 @@ class Home extends MainPageF {
             $this->cmbTA->Text=$ta;
             $this->cmbTA->dataBind();
 
-            switch ($modeuraian) {
+            switch ($_SESSION['currentPageHomeF']['modeuraian']) {
 				case 'barang_jasa' :
 					$this->RepeaterTransport->Visible=false;
 				break;
