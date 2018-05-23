@@ -1,11 +1,11 @@
-<%@ Title="Data - Usulan" %>
+<%@ Title="Data - Usulan Harga" %>
 <com:TContent ID="moduleheader">
-    <i class="icon-task position-left"></i> <span class="text-semibold">Tambah Usulan</span>
+    <i class="icon-task position-left"></i> <span class="text-semibold">Tambah Usulan Harga</span>
 </com:TContent>
 <com:TContent ID="modulebreadcrumb">    
     <li><a href="#">DATA</a></li>
     <li class="active">USULAN</li>
-    <li class="active">TAMBAH USULAN</li>
+    <li class="active">TAMBAH USULAN HARGA</li>
 </com:TContent>
 <com:TContent ID="maincontent">
 <com:TPanel Visible="<%= $this->getViewProcess(false)%>" CssClass="content">
@@ -105,7 +105,7 @@
 <com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="content">	
     <div class="panel panel-flat">
         <div class="panel-heading">            
-            <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> Tambah Usulan</h5>
+            <h5 class="panel-title"><i class="icon-pencil7 position-left"></i> Tambah Usulan Harga</h5>
             <div class="heading-elements">
                 <ul class="icons-list">                
                     <li>

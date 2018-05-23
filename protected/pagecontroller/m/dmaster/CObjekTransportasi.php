@@ -132,7 +132,7 @@ class CObjekTransportasi extends MainPageM {
         $this->txtEditNamaObjek->Text=$result[1]['nama_rek5'];    
         $this->txtEditNamaKota->Text=$result[1]['kota'];
         $this->cmbEditSatuan->DataSource=$this->DMaster->getListSatuan();
-        $this->cmbEditSatuan->Text=$r[1]['id_satuan'];
+        $this->cmbEditSatuan->Text=$result[1]['id_satuan'];
         $this->cmbEditSatuan->dataBind();           
     }   
     

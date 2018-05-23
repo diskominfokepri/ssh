@@ -46,8 +46,8 @@ class CUraian extends MainPageD {
     protected function populateData($search=false) {	
         $tahun=$_SESSION['ta'];
         if ($search) {
-            $str = "SELECT um.iduraian,um.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,um.batam,um.bintan,um.tanjungpinang,um.karimun,um.lingga,um.natuna,um.anambas FROM uraian um,rek5 WHERE rek5.no_rek5=um.rekening AND um.ta=$tahun";	
-            $str_jumlah="uraian um,proyek_m pm WHERE pm.idproyek=um.idproyek AND pm.tahun_anggaran=$tahun";
+            $str = "SELECT um.iduraian,um.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,um.batam,um.bintan,um.tanjungpinang,um.karimun,um.lingga,um.natuna,um.anambas FROM uraian um,v_rekening rek5 WHERE rek5.no_rek5=um.rekening AND um.ta=$tahun AND rek5.id_tipe=1";	
+            $str_jumlah="uraian um, v_rekening rek5 WHERE rek5.no_rek5=um.rekening AND um.ta=$tahun AND rek5.id_tipe=1";
             $txtsearch=addslashes($this->txtKriteria->Text);
             switch ($this->cmbKriteria->Text) {
                 case 'id' :
@@ -77,8 +77,8 @@ class CUraian extends MainPageD {
             }
             $jumlah_baris=$this->DB->getCountRowsOfTable ($str_jumlah,'um.iduraian');	
         }else{
-            $str = "SELECT um.iduraian,um.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,um.batam,um.bintan,um.tanjungpinang,um.karimun,um.lingga,um.natuna,um.anambas FROM uraian um,rek5 WHERE rek5.no_rek5=um.rekening AND um.ta=$tahun";    
-            $jumlah_baris=$this->DB->getCountRowsOfTable ("uraian um WHERE um.ta=$tahun",'um.iduraian');	
+            $str = "SELECT um.iduraian,um.rekening,rek5.nama_rek5,rek5.merek,rek5.id_satuan,um.batam,um.bintan,um.tanjungpinang,um.karimun,um.lingga,um.natuna,um.anambas FROM uraian um,v_rekening rek5 WHERE rek5.no_rek5=um.rekening AND um.ta=$tahun AND rek5.id_tipe=1";    
+            $jumlah_baris=$this->DB->getCountRowsOfTable ("uraian um, v_rekening rek5 WHERE rek5.no_rek5=um.rekening AND um.ta=$tahun AND rek5.id_tipe=1",'um.iduraian');	
         }
         $this->RepeaterS->CurrentPageIndex=$_SESSION['currentPageUraian']['page_num'];
 		$this->RepeaterS->VirtualItemCount=$jumlah_baris;

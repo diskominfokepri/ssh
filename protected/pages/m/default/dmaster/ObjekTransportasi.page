@@ -23,7 +23,7 @@
         </div>
         <div class="panel-body">
             <div class="form-horizontal">
-                <div class="form-group" id="divAddKodeRincian">
+                <div class="form-group" id="divAddKodeRincianTransportasi">
                     <label class="control-label col-md-2">Nama Rincian :</label>
                     <div class="col-md-10">
                         <com:TActiveDropDownList ID="cmbAddRincian" OnCallBack="cmbRincianChanged" CssClass="form-control">		                    
@@ -35,24 +35,24 @@
                             <prop:ClientSide.OnComplete>                                                                    
                                 $('#<%=$this->cmbAddRincian->ClientId%>').prop('disabled',false); 
                                 Prado.Validation.reset("addobjek");
-                                $('#divAddKodeRincian').removeClass('has-error');
+                                $('#divAddKodeRincianTransportasi').removeClass('has-error');
                                 $('#divAddKodeObjekTransportasi').removeClass('has-error');
                                 $('#divAddNamaObjekTransportasi').removeClass('has-error');
                             </prop:ClientSide.OnComplete>
                         </com:TActiveDropDownList>
                         <com:TRequiredFieldValidator ID="FieldAddKodeRincianValidator" ControlToValidate="cmbAddRincian" InitialValue="none" Display="Dynamic" ErrorMessage="Pilih Nama Rincian" ValidationGroup="addobjek" FocusOnError="true" CssClass="has-error help-block">
                             <prop:ClientSide.OnValidationError>
-                                $('#divAddKodeRincian').addClass('has-error');
+                                $('#divAddKodeRincianTransportasi').addClass('has-error');
                                 $('#<%=$this->FieldAddKodeRincianValidator->ClientID%>').removeAttr('style');
                             </prop:ClientSide.OnValidationError>
                             <prop:ClientSide.OnValidationSuccess>
-                                $('#divAddKodeRincian').removeClass('has-error');
+                                $('#divAddKodeRincianTransportasi').removeClass('has-error');
                                 Prado.Validation.reset("addobjek");
                             </prop:ClientSide.OnValidationSuccess>
                         </com:TRequiredFieldValidator>	
                     </div>
                 </div>
-                <div class="form-group" id="divAddKodeObjek">
+                <div class="form-group" id="divAddKodeObjekTransportasi">
                     <label class="control-label col-md-2">Kode Objek :</label>
                     <div class="col-md-10">
                         <div class="input-group">
@@ -80,7 +80,7 @@
                         </com:TActiveCustomValidator>
                     </div>
                 </div>
-                <div class="form-group" id="divAddNamaObjek">
+                <div class="form-group" id="divAddNamaObjekTransportasi">
                     <label class="control-label col-md-2">Nama Objek :</label>			
                     <div class="col-md-10">				
                         <com:TActiveTextBox ID="txtAddNamaObjek" Columns="30" CssClass="form-control" />		
@@ -95,7 +95,7 @@
                         </com:TRequiredFieldValidator>	    				
                     </div>		
                 </div>
-                <div class="form-group" id="divAddNamaKota">
+                <div class="form-group" id="divAddNamaKotaTransportasi">
                     <label class="control-label col-md-2">Kota :</label>           
                     <div class="col-md-10">             
                         <com:TTextBox ID="txtAddNamaKota" CssClass="form-control" />                       
@@ -110,7 +110,7 @@
                         </com:TRequiredFieldValidator>   
                     </div>      
                 </div>
-                <div class="form-group" id="divAddSatuan">
+                <div class="form-group" id="divAddSatuanTransportasi">
                     <label class="control-label col-md-2">Satuan:</label>
                     <div class="col-md-10">
                         <com:TDropDownList ID="cmbAddSatuan" CssClass="form-control" />                     

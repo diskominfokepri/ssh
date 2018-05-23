@@ -46,8 +46,8 @@ class COPD extends MainPageM {
         $idunit=$param->Value;
         if ($idunit != '') {
             try {
-                if ($this->hiddenid->Value != $idunit){                                        
-                    if ($this->DB->checkRecordIsExist ('idunit','unit',$idunit)) {
+                if ($this->hiddenEditKodeOPD->Value != $idunit){                                        
+                    if ($this->DB->checkRecordIsExist ('kode_unit','unit',$idunit)) {
                         throw new Exception("Kode OPD ($idunit) sudah digunakan silahkan ganti dengan yang lain.");				
                     }
                 }
@@ -57,6 +57,25 @@ class COPD extends MainPageM {
             }
         }		
 	}
+
+	
+	public function checkNamaOPD ($sender,$param) {
+		$this->idProcess=$sender->getId()==='checkAddNamaOPD'?'add':'edit';
+        $nama_unit=strtoupper($param->Value);
+        if ($nama_unit != '') {
+            try {
+                if ($this->hiddenEditNamaOPD->Value != $nama_unit){                                        
+                    if ($this->DB->checkRecordIsExist ('nama_unit','unit',$nama_unit)) {
+                        throw new Exception("Nama OPD ($nama_unit) sudah digunakan silahkan ganti dengan yang lain.");				
+                    }
+                }
+            }catch (Exception $e) {
+                $param->IsValid=false;
+                $sender->ErrorMessage=$e->getMessage();
+            }
+        }		
+	}
+
 	public function saveData ($sender,$param) {
 		if ($this->Page->IsValid) {
             $idunit=addslashes($this->txtAddKodeOPD->Text);
@@ -79,7 +98,9 @@ class COPD extends MainPageM {
 		$result = $this->DB->getRecord("SELECT idunit, kode_unit, nama_unit from unit WHERE idunit='$id'");
 		$this->hiddenid->Value=$id;		
 		$this->txtEditKodeOPD->Text=$result[1]['kode_unit'];
+		$this->hiddenEditKodeOPD->Value=$result[1]['kode_unit'];
 		$this->txtEditNamaOPD->Text=$result[1]['nama_unit'];
+		$this->hiddenEditNamaOPD->Value=$result[1]['nama_unit'];
 	}
 	public function updateData($sender,$param) {
 		if ($this->Page->IsValid) {

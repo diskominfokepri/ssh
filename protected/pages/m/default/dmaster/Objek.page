@@ -104,7 +104,16 @@
                 <div class="form-group" id="divAddSatuan">
                     <label class="control-label col-md-2">Satuan:</label>
                     <div class="col-md-10">
-                        <com:TDropDownList ID="cmbAddSatuan" CssClass="form-control" />                        
+                        <com:TDropDownList ID="cmbAddSatuan" CssClass="form-control" />     
+                        <com:TRequiredFieldValidator ID="FieldAddSatuanValidator" InitialValue="none" ControlToValidate="cmbAddSatuan" Display="Dynamic" ErrorMessage="Isi Nama Satuan" ValidationGroup="addobjek" FocusOnError="true" CssClass="has-error help-block">
+                            <prop:ClientSide.OnValidationError>
+                                $('#divAddSatuan').addClass('has-error');
+                                $('#<%=$this->FieldAddSatuanValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divAddSatuan').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>                                        
                     </div>
                 </div>
                 <div class="form-group">
