@@ -25,8 +25,9 @@
                 <div class="form-group" id="divAddOPD">
                     <label class="control-label col-md-2">Kode OPD:</label>
                     <div class="col-md-10">
-                        <com:TTextBox ID="txtAddKodeOPD" MaxLength="50" CssClass="form-control" />				
-                        <com:TRequiredFieldValidator ID="FieldAddOPDValidator" ControlToValidate="txtAddKodeOPD" Display="Dynamic" ErrorMessage="Isi Kode OPD" ValidationGroup="addtransaksi" FocusOnError="true" CssClass="has-error help-block">
+
+                        <com:TTextBox ID="txtAddKodeOPD" MaxLength="50" CssClass="form-control" />	
+                        <com:TRequiredFieldValidator ID="FieldAddOPDValidator" ControlToValidate="txtAddKodeOPD" Display="Dynamic" ErrorMessage="Isi Kode OPD" ValidationGroup="addOPD" FocusOnError="true" CssClass="has-error help-block">
                             <prop:ClientSide.OnValidationError>
                                 $('#divAddOPD').addClass('has-error');
                                 $('#<%=$this->FieldAddOPDValidator->ClientID%>').removeAttr('style');
@@ -35,7 +36,8 @@
                                 $('#divAddOPD').removeClass('has-error');
                             </prop:ClientSide.OnValidationSuccess>
                         </com:TRequiredFieldValidator>
-                        <com:TActiveCustomValidator ID="checkAddOPD" ControlToValidate="txtAddKodeOPD" Display="Dynamic" OnServerValidate="checkOPD" ValidationGroup="addtransaksi" ErrorMessage="Kode Transaksi Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">					
+
+                        <com:TActiveCustomValidator ID="checkAddOPD" ControlToValidate="txtAddKodeOPD" Display="Dynamic" OnServerValidate="checkOPD" ValidationGroup="addOPD" ErrorMessage="Kode OPD Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">					
                             <prop:ClientSide.OnValidationError>
                                 $('#divAddOPD').addClass('has-error');
                                 $('#<%=$this->checkAddOPD->ClientID%>').removeAttr('style');
@@ -46,11 +48,13 @@
                         </com:TActiveCustomValidator>
                     </div>
                 </div>
+
                 <div class="form-group" id="divAddNamaOPD">
                     <label class="control-label col-md-2">Nama OPD:</label>
                     <div class="col-md-10">
-                        <com:TTextBox ID="txtAddNamaOPD" CssClass="form-control" />		
-                        <com:TRequiredFieldValidator ID="FieldAddNamaOPDValidator" ControlToValidate="txtAddNamaOPD" Display="Dynamic" ErrorMessage="Isi Nama Transaksi" ValidationGroup="addtransaksi" FocusOnError="true" CssClass="has-error help-block">
+
+                        <com:TTextBox ID="txtAddNamaOPD" CssClass="form-control" />	
+                        <com:TRequiredFieldValidator ID="FieldAddNamaOPDValidator" ControlToValidate="txtAddNamaOPD" Display="Dynamic" ErrorMessage="Isi Nama OPD" ValidationGroup="addOPD" FocusOnError="true" CssClass="has-error help-block">
                             <prop:ClientSide.OnValidationError>
                                 $('#divAddNamaOPD').addClass('has-error');
                                 $('#<%=$this->FieldAddNamaOPDValidator->ClientID%>').removeAttr('style');
@@ -59,11 +63,22 @@
                                 $('#divAddNamaOPD').removeClass('has-error');
                             </prop:ClientSide.OnValidationSuccess>
                         </com:TRequiredFieldValidator>
+
+                        <com:TActiveCustomValidator ID="checkAddNamaOPD" ControlToValidate="txtAddNamaOPD" Display="Dynamic" OnServerValidate="checkNamaOPD" ValidationGroup="addOPD" ErrorMessage="Nama OPD Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">                 
+                            <prop:ClientSide.OnValidationError>
+                                $('#divAddNamaOPD').addClass('has-error');
+                                $('#<%=$this->checkAddNamaOPD->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divAddNamaOPD').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TActiveCustomValidator>
                     </div>
-                </div>				
+                </div>		
+
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <com:TActiveButton ID="btnSave" CssClass="btn btn-info btn-labeled btn-xs" OnClick="saveData" ValidationGroup="addtransaksi" Attributes.Title="Simpan">
+                        <com:TActiveButton ID="btnSave" CssClass="btn btn-info btn-labeled btn-xs" OnClick="saveData" ValidationGroup="addOPD" Attributes.Title="Simpan">
                             <prop:Text>                                        
                                 Simpan                                        
                             </prop:Text>
@@ -109,21 +124,35 @@
                     <label class="control-label col-md-2">Kode OPD:</label>
                     <div class="col-md-10">
                         <com:TTextBox ID="txtEditKodeOPD" CssClass="form-control" />        
-                        <com:TRequiredFieldValidator ID="FieldEditKodeOPDValidator" ControlToValidate="txtEditKodeOPD" Display="Dynamic" ErrorMessage="Isi Kode OPD" ValidationGroup="editOPD" FocusOnError="true" CssClass="has-error help-block">
+                        <com:THiddenField ID="hiddenEditKodeOPD" />
+
+                        <com:TRequiredFieldValidator ID="FieldAddKodeOPDValidator" ControlToValidate="txtEditKodeOPD" Display="Dynamic" ErrorMessage="Isi Kode OPD" ValidationGroup="editOPD" FocusOnError="true" CssClass="has-error help-block"> 
                             <prop:ClientSide.OnValidationError>
                                 $('#divEditKodeOPD').addClass('has-error');
-                                $('#<%=$this->FieldEditKodeOPDValidator->ClientID%>').removeAttr('style');
+                                $('#<%=$this->FieldAddKodeOPDValidator->ClientID%>').removeAttr('style');
                             </prop:ClientSide.OnValidationError>
                             <prop:ClientSide.OnValidationSuccess>
                                 $('#divEditKodeOPD').removeClass('has-error');
                             </prop:ClientSide.OnValidationSuccess>
                         </com:TRequiredFieldValidator>
+
+                        <com:TActiveCustomValidator ID="FieldCheckkodeOPDValidator" ControlToValidate="txtEditKodeOPD" Display="Dynamic" OnServerValidate="checkOPD" ValidationGroup="editOPD" ErrorMessage="Kode OPD Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">                 
+                            <prop:ClientSide.OnValidationError>
+                                $('#divEditKodeOPD').addClass('has-error');
+                                $('#<%=$this->FieldCheckkodeOPDValidator->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divEditKodeOPD').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TActiveCustomValidator>
+
                     </div>
                 </div>      
                 <div class="form-group" id="divEditNamaOPD">
                     <label class="control-label col-md-2">Nama OPD:</label>
                     <div class="col-md-10">
-                        <com:TTextBox ID="txtEditNamaOPD" CssClass="form-control" />		
+                        <com:TTextBox ID="txtEditNamaOPD" CssClass="form-control" />	
+                        <com:THiddenField ID="hiddenEditNamaOPD" />	
                         <com:TRequiredFieldValidator ID="FieldEditNamaOPDValidator" ControlToValidate="txtEditNamaOPD" Display="Dynamic" ErrorMessage="Isi Nama OPD" ValidationGroup="editOPD" FocusOnError="true" CssClass="has-error help-block">
                             <prop:ClientSide.OnValidationError>
                                 $('#divEditNamaOPD').addClass('has-error');
@@ -133,6 +162,15 @@
                                 $('#divEditNamaOPD').removeClass('has-error');
                             </prop:ClientSide.OnValidationSuccess>
                         </com:TRequiredFieldValidator>
+                        <com:TActiveCustomValidator ID="checkEditNamaOPD" ControlToValidate="txtEditNamaOPD" Display="Dynamic" OnServerValidate="checkNamaOPD" ValidationGroup="editOPD" ErrorMessage="Nama OPD Yang Anda Inputkan Sudah Ada" FocusOnError="true" CssClass="has-error help-block">                 
+                            <prop:ClientSide.OnValidationError>
+                                $('#divEditNamaOPD').addClass('has-error');
+                                $('#<%=$this->checkEditNamaOPD->ClientID%>').removeAttr('style');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('#divEditNamaOPD').removeClass('has-error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TActiveCustomValidator>
                     </div>
                 </div>				
                 <div class="form-group">

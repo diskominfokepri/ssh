@@ -232,7 +232,7 @@
             </com:TActivePager> 
             <com:TActivePager ID="pagerRepeaterTransport" OnCallBack="Page.renderCallbackTransport" ControlToPaginate="RepeaterTransport" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedTransport" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="10" FirstPageText="First" LastPageText="Last" CssClass="custompaging text-right" ButtonCssClass="page">   
                 <prop:ClientSide.OnPreDispatch>
-                    $('#<%=$this->pagerRepeaterS->ClientId%>').prop('disabled',true);                                       
+                    $('#<%=$this->pagerRepeaterTransport->ClientId%>').prop('disabled',true);                                       
                     Pace.stop();
                     Pace.start();                                                                                                             
                 </prop:ClientSide.OnPreDispatch>                    

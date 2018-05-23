@@ -103,7 +103,7 @@ class Home extends MainPageF {
 		}
 		if ($limit < 0) {$offset=0;$limit=10;$_SESSION['currentPageHomeF']['page_num']=0;}
         $str = "$str ORDER BY um.rating DESC,um.rekening ASC LIMIT $offset,$limit";
-		$r=$this->DB->getRecord($str);	
+		$r=$this->DB->getRecord($str,$offset+1);	
         $repeaters->DataSource=$r;
         $repeaters->dataBind();
 

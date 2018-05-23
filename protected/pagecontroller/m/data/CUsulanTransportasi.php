@@ -92,7 +92,7 @@ class CUsulanTransportasi extends MainPageM {
 		}
 		if ($limit < 0) {$offset=0;$limit=10;$_SESSION['currentPageUsulanTransportasi']['page_num']=0;}
         $str = "$str ORDER BY us.status ASC, us.rekening ASC LIMIT $offset,$limit";
-		$r=$this->DB->getRecord($str);		
+		$r=$this->DB->getRecord($str,$offset+1);		
                 
         $this->RepeaterS->DataSource=$r;
         $this->RepeaterS->dataBind();
