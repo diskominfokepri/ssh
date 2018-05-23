@@ -2,17 +2,17 @@
 <html lang="id">
 <com:THead>     
     <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="<%=$this->Page->Theme->baseUrl%>/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
     <link href="<%=$this->Page->Theme->baseUrl%>/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="<%=$this->Page->Theme->baseUrl%>/assets/css/core.min.css" rel="stylesheet" type="text/css">
     <link href="<%=$this->Page->Theme->baseUrl%>/assets/css/components.min.css" rel="stylesheet" type="text/css">
-	<link href="<%=$this->Page->Theme->baseUrl%>/assets/css/colors.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=$this->Page->Theme->baseUrl%>/assets/css/colors.min.css" rel="stylesheet" type="text/css">
     <link href="<%=$this->Page->Theme->baseUrl%>/assets/css/pace.css" rel="stylesheet" type="text/css">
     <link href="<%=$this->Page->Theme->baseUrl%>/assets/css/ssh.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/png" href="<%=$this->Page->setup->getAddress()%>/resources/ikon.png"/>
-    <com:TContentPlaceHolder ID="csscontent" />	
+    <com:TContentPlaceHolder ID="csscontent" /> 
 </com:THead>
 <body>        
 <com:TForm id="mainform" Attributes.role="form">
@@ -52,13 +52,13 @@
                             <prop:ClientSide.OnPreDispatch>
                                 Pace.stop();
                                 Pace.start();
-                                $('#<%=$this->btnLogout->ClientId%>').prop('disabled',true);						
+                                $('#<%=$this->btnLogout->ClientId%>').prop('disabled',true);                        
                             </prop:ClientSide.OnPreDispatch>
                             <prop:ClientSide.OnLoading>
-                                $('#<%=$this->btnLogout->ClientId%>').prop('disabled',true);									                            
+                                $('#<%=$this->btnLogout->ClientId%>').prop('disabled',true);                                                                
                             </prop:ClientSide.OnLoading>
                             <prop:ClientSide.onComplete>
-                                $('#<%=$this->btnLogout->ClientId%>').prop('disabled',true);									                            
+                                $('#<%=$this->btnLogout->ClientId%>').prop('disabled',true);                                                                
                             </prop:ClientSide.OnComplete>
                         </com:TActiveLinkButton>
                     </li>
@@ -78,11 +78,11 @@
             <li<%=$this->Page->showDashboard==true?' class="active"':''%>>
                 <a href="<%=$this->Page->constructUrl('Home',true)%>">
                     <i class="icon-display4 position-left"></i> 
-                    <span>DASHBOARD</span>											
+                    <span>DASHBOARD</span>                                          
                 </a>                                        
             </li>
             <com:TLiteral Visible="<%=$this->Page->Pengguna->getTipeUser()=='m'%>">
-				<li class="dropdown mega-menu mega-menu-wide<%=$this->Page->showDMaster==true?' active':''%> visible">
+                <li class="dropdown mega-menu mega-menu-wide<%=$this->Page->showDMaster==true?' active':''%> visible">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-drive position-left"></i> DATA MASTER <span class="caret"></span>
                     </a>
@@ -145,11 +145,11 @@
                                                 Objek Transportasi
                                             </a>
                                         </li>              
-    								</ul>
-    							</div>                            
-    						</div>
-    					</div>
-    				</div>
+                                    </ul>
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
                 </li>
                 <li class="dropdown visible<%=$this->Page->showData==true?' active':''%>">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
